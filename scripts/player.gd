@@ -35,15 +35,13 @@ func _physics_process(delta: float) -> void:
 		
 		animation_player.play("idle")
 	
-	if Input.is_action_just_pressed("jump"):
+	if Input.is_action_just_pressed("jump") and is_touching_ground:
 		velocity.y -= JUMP_SPEED
 	
 	move_and_slide()
 
 func _on_ground_detector_body_entered(body: Node2D) -> void:
-	print("entered")
-	print(body.name)
+	is_touching_ground = true
 
 func _on_ground_detector_body_exited(body: Node2D) -> void:
-	print("exited")
-	print(body.name)
+	is_touching_ground = false
