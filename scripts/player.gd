@@ -32,12 +32,20 @@ func _ready() -> void:
 	slash_sprite.visible = false
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	var label = health_meter.get_node("Label") as Label
 	label.text = "%s/%s" % [health, max_health]
 
 	for i in body_part_dictionary.size():
 		var checkbox = body_part_dictionary.values()[i] as CheckBox
 		var info_button = checkbox.get_parent().get_node("InfoButton") as TextureButton
+=======
+	health_meter.get_child(0).text = "%s/%s" % [health, max_health]
+
+	for i in len(body_part_dictionary.values()):
+		var checkbox := body_part_dictionary.values()[i]
+		var info_button: TextureButton = checkbox.get_parent().get_child(1)
+>>>>>>> Stashed changes
 =======
 	health_meter.get_child(0).text = "%s/%s" % [health, max_health]
 
@@ -132,6 +140,9 @@ func make_sacrifice(toggled_on: bool, sacrifice, index: int) -> void:
 func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 	var body_part := body_part_dictionary.keys()[index]
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
@@ -152,8 +163,12 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 
 <<<<<<< Updated upstream
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 	var label = health_meter.get_node("Label") as Label
 	label.text = "%s/%s" % [health, max_health]
+=======
+	health_meter.get_child(0).text = "%s/%s" % [health, max_health]
+>>>>>>> Stashed changes
 =======
 	health_meter.get_child(0).text = "%s/%s" % [health, max_health]
 >>>>>>> Stashed changes
