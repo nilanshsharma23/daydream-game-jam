@@ -15,8 +15,8 @@ var coyote_time: float = 0.2
 var coyote_timer: float = 0.0
 
 @export var body_parts: Array[Sprite2D]
-@export var body_part_dictionary: Dictionary[Sprite2D, CheckBox]
-@export var sacrifices: Array[Sacrifice]
+@export var body_part_dictionary: Dictionary
+@export var sacrifices: Array
 
 @onready var vignette: ColorRect = $CanvasLayer/Control/Vignette
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
@@ -30,11 +30,12 @@ var coyote_timer: float = 0.0
 
 func _ready() -> void:
     slash_sprite.visible = false
-    health_meter.get_child(0).text = "%s/%s" % [health, max_health]
+    var label = health_meter.get_node("Label") as Label
+    label.text = "%s/%s" % [health, max_health]
 
-    for i in len(body_part_dictionary.values()):
-        var checkbox := body_part_dictionary.values()[i]
-        var info_button: TextureButton = checkbox.get_parent().get_child(1)
+    for i in body_part_dictionary.size():
+        var checkbox = body_part_dictionary.values()[i] as CheckBox
+        var info_button = checkbox.get_parent().get_node("InfoButton") as TextureButton
         info_button.pressed.connect(info_panel.show_info_panel.bind(sacrifices[i].sacrifice_description))
         checkbox.toggled.connect(make_sacrifice.bind(sacrifices[i], i))
 
@@ -108,8 +109,8 @@ func _on_sacrifices_button_pressed() -> void:
         sacrifices_panel.show()
         tween.tween_property(sacrifices_panel, "position", Vector2(0, 0), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 
-func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
-    var body_part := body_part_dictionary.keys()[index]
+func make_sacrifice(toggled_on: bool, sacrifice, index: int) -> void:
+    var body_part = body_part_dictionary.keys()[index] as Sprite2D
     if toggled_on:
         body_part.hide()
         max_health -= sacrifice.health_decrease
@@ -125,5 +126,6 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
         if index == 0:
             vignette_player.play("hide")
 
-    health_meter.get_child(0).text = "%s/%s" % [health, max_health]
+    var label = health_meter.get_node("Label") as Label
+    label.text = "%s/%s" % [health, max_health]
     health_meter.max_value = max_health
