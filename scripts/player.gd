@@ -35,6 +35,7 @@ func _ready() -> void:
 
 	for i in body_part_dictionary.size():
 		var checkbox = body_part_dictionary.values()[i] as CheckBox
+		var checkbox = body_part_dictionary.values()[i] as CheckBox
 		var info_button = checkbox.get_parent().get_node("InfoButton") as TextureButton
 		info_button.pressed.connect(info_panel.show_info_panel.bind(sacrifices[i].sacrifice_description))
 		checkbox.toggled.connect(make_sacrifice.bind(sacrifices[i], i))
