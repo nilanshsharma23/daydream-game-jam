@@ -192,3 +192,5 @@ repeat_times = 8
 [node name="Layer00110" type="Sprite2D" parent="Parallax2D10"]
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("12_gw5y6")
+
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]

@@ -402,7 +402,7 @@ size = Vector2(14, 2)
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_4r5pv"]
 shader = ExtResource("11_fulsm")
 shader_parameter/outerRadius = 0.978000046455
-shader_parameter/innerRadius = 0.38400001824
+shader_parameter/innerRadius = 0.0
 shader_parameter/alpha = 0.0
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a8ls1"]
@@ -886,6 +886,8 @@ offset_right = 144.0
 offset_bottom = 112.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(1e-05, 1e-05)
+pivot_offset = Vector2(144, 112)
 mouse_filter = 2
 texture = ExtResource("13_60mlk")
 script = ExtResource("14_i4ail")

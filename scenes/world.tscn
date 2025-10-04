@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://ro2d4k1rp4up" path="res://sprites/background/Layer_0009_2.png" id="4_71j4m"]
 [ext_resource type="Texture2D" uid="uid://bsd4384huw33u" path="res://sprites/background/Layer_0005_5.png" id="4_k0juu"]
 [ext_resource type="Texture2D" uid="uid://bighekdveb68w" path="res://sprites/background/Layer_0008_3.png" id="5_qfnet"]
-[ext_resource type="Script" uid="uid://cdht8a6pn4flu" path="res://scenes/enemy.gd" id="6_4mrxx"]
+[ext_resource type="Script" uid="uid://cdht8a6pn4flu" path="res://scripts/enemy.gd" id="6_4mrxx"]
 [ext_resource type="Texture2D" uid="uid://ctpficcj2hxux" path="res://sprites/background/Layer_0007_Lights.png" id="6_i7141"]
 [ext_resource type="Texture2D" uid="uid://bmgy6rggv0fpj" path="res://sprites/background/Layer_0006_4.png" id="7_4mrxx"]
 [ext_resource type="PackedScene" uid="uid://du6o0b814e6qv" path="res://scenes/hurtbox.tscn" id="7_i7141"]
