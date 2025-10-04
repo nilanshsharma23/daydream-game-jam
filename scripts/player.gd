@@ -30,36 +30,12 @@ var coyote_timer: float = 0.0
 
 func _ready() -> void:
 	slash_sprite.visible = false
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 	var label = health_meter.get_node("Label") as Label
 	label.text = "%s/%s" % [health, max_health]
 
 	for i in body_part_dictionary.size():
 		var checkbox = body_part_dictionary.values()[i] as CheckBox
 		var info_button = checkbox.get_parent().get_node("InfoButton") as TextureButton
-=======
-	health_meter.get_child(0).text = "%s/%s" % [health, max_health]
-
-	for i in len(body_part_dictionary.values()):
-		var checkbox := body_part_dictionary.values()[i]
-		var info_button: TextureButton = checkbox.get_parent().get_child(1)
->>>>>>> Stashed changes
-=======
-	health_meter.get_child(0).text = "%s/%s" % [health, max_health]
-
-	for i in len(body_part_dictionary.values()):
-		var checkbox := body_part_dictionary.values()[i]
-		var info_button: TextureButton = checkbox.get_parent().get_child(1)
->>>>>>> Stashed changes
-=======
-	health_meter.get_child(0).text = "%s/%s" % [health, max_health]
-
-	for i in len(body_part_dictionary.values()):
-		var checkbox := body_part_dictionary.values()[i]
-		var info_button: TextureButton = checkbox.get_parent().get_child(1)
->>>>>>> Stashed changes
 		info_button.pressed.connect(info_panel.show_info_panel.bind(sacrifices[i].sacrifice_description))
 		checkbox.toggled.connect(make_sacrifice.bind(sacrifices[i], i))
 
@@ -133,19 +109,8 @@ func _on_sacrifices_button_pressed() -> void:
 		sacrifices_panel.show()
 		tween.tween_property(sacrifices_panel, "position", Vector2(0, 0), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 
-<<<<<<< Updated upstream
 func make_sacrifice(toggled_on: bool, sacrifice, index: int) -> void:
 	var body_part = body_part_dictionary.keys()[index] as Sprite2D
-=======
-func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
-	var body_part := body_part_dictionary.keys()[index]
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 	if toggled_on:
 		body_part.hide()
 		max_health -= sacrifice.health_decrease
@@ -161,18 +126,6 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 		if index == 0:
 			vignette_player.play("hide")
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 	var label = health_meter.get_node("Label") as Label
 	label.text = "%s/%s" % [health, max_health]
-=======
-	health_meter.get_child(0).text = "%s/%s" % [health, max_health]
->>>>>>> Stashed changes
-=======
-	health_meter.get_child(0).text = "%s/%s" % [health, max_health]
->>>>>>> Stashed changes
-=======
-	health_meter.get_child(0).text = "%s/%s" % [health, max_health]
->>>>>>> Stashed changes
 	health_meter.max_value = max_health
