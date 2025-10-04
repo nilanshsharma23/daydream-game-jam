@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const GRAVITY: float = 400.0
-const WALK_SPEED: float = 200.0
+var walk_speed: float = 100
 const JUMP_SPEED: float = 200
 
 var is_touching_ground: bool = false
@@ -14,21 +14,34 @@ var is_touching_ground: bool = false
 func _physics_process(delta: float) -> void:
 	velocity.y += delta * GRAVITY
 	
+	if Input.is_action_pressed("sprint"):
+		walk_speed = 200
+	else:
+		walk_speed = 100
+	
 	if Input.is_action_pressed("move_left"):
-		velocity.x = -WALK_SPEED
+		velocity.x = -walk_speed
 		
 		for sprite in body_parts:
 			sprite.flip_h = true
 		
-		animation_player.play("walk")
+		if walk_speed >= 200:
+			animation_player.play("sprint")
+		else:
+			animation_player.play("walk")
+			
 		limbs.scale.x = -1
 	elif Input.is_action_pressed("move_right"):
-		velocity.x = WALK_SPEED
+		velocity.x = walk_speed
 		
 		for sprite in body_parts:
 			sprite.flip_h = false
 		
-		animation_player.play("walk")
+		if walk_speed >= 200:
+			animation_player.play("sprint")
+		else:
+			animation_player.play("walk")
+		
 		limbs.scale.x = 1
 	else:
 		velocity.x = 0
