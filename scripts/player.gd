@@ -55,11 +55,6 @@ func _unhandled_input(event: InputEvent) -> void:
 func _physics_process(delta: float) -> void:
 	velocity.y += delta * GRAVITY
 	
-	if Input.is_action_pressed("sprint"):
-		walk_speed = 200
-	else:
-		walk_speed = 100
-	
 	if Input.is_action_pressed("move_left"):
 		velocity.x = -walk_speed
 		

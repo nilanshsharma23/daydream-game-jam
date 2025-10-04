@@ -1,38 +1,29 @@
-// Original : Shader By Zacksly - https://zacksly.itch.io/
 shader_type canvas_item;
 
-uniform float AspectRatio = 1.5;
-uniform float Diamonds = 10.0;
-const float _min = -1.0;
-const float _max = 1.0;
-uniform float pixel_size = 0.08;
+uniform vec4 in_color:source_color;
+uniform vec4 out_color:source_color;
 
-uniform float height = -1.0;
-uniform bool disable_pixel;
+uniform float in_out:hint_range(0.,1.)=0.;
 
-void fragment() {
+uniform float position:hint_range(-1.5,1.) = 0.856;
+uniform vec2 size = vec2(16., 16.);
 
-	vec3 uv_grid = fract(vec3(UV, 0.0) * vec3(AspectRatio * Diamonds, Diamonds, 0.0));
-	if(! disable_pixel)uv_grid = round(uv_grid / pixel_size) * pixel_size;
-	float grid = abs(uv_grid.x - 0.5) + abs(uv_grid.y - 0.5);
-	vec3 raw_cam_image = vec3(UV.y + height)*1.5;
-	vec3 grayscale;
-	{
-		float max1 = max(raw_cam_image.r, raw_cam_image.g);
-		float max2 = max(max1, raw_cam_image.b);
-		grayscale = vec3(max(max1, max2));
-	}
-	vec3 clamped;
-	if( disable_pixel)
-		clamped = clamp(grayscale, vec3(_min), vec3(_max));
-	else
-		clamped = round(clamp(grayscale, vec3(_min), vec3(_max))/0.1)*0.1;
+void fragment(){
+    vec2 a = (1./SCREEN_PIXEL_SIZE) / size;
 
-	bool black_dot_grid = grid > dot(vec3(1.0) - clamped, vec3(0.333333));
+    vec2 uv=UV;
+    uv *= a;
 
-	vec4 texture_uv = texture(TEXTURE,UV);
-	vec4 grid_result = black_dot_grid? texture_uv : vec4(0.0);
+    vec2 i_uv = floor(uv);
+    vec2 f_uv = fract(uv);
 
-	COLOR.rgb = grid_result.rgb;
-	COLOR.a = grid_result.a;
+    float wave = max(0.,i_uv.x/(a.x) - position);
+
+    vec2 center = f_uv*2.-1.;
+    float circle = length(center);
+    circle = 1. - step(wave,circle);
+
+    vec4 color = mix(in_color, out_color, step(0.5, in_out));
+
+    COLOR=vec4(circle) * color;
 }
