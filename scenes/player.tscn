@@ -1,9 +1,11 @@
-[gd_scene load_steps=12 format=3 uid="uid://csw5uytlw14x4"]
+[gd_scene load_steps=14 format=3 uid="uid://csw5uytlw14x4"]
 
 [ext_resource type="Script" uid="uid://bwh81tov15l3c" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://06gnfs2bfc5l" path="res://sprites/body.png" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://cxx6sbxm77jux" path="res://sprites/head.png" id="3_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://bw51kkg7tu88u" path="res://sprites/leg.png" id="4_dqkch"]
+[ext_resource type="Texture2D" uid="uid://0dipxb055l2g" path="res://sprites/fill.png" id="5_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://dxfthdugy0vk7" path="res://sprites/frame.png" id="6_fjrip"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
 size = Vector2(14, 24)
@@ -332,5 +334,26 @@ zoom = Vector2(4, 4)
 limit_top = -90
 limit_bottom = 90
 
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="StrengthMeter" type="TextureProgressBar" parent="CanvasLayer/Control"]
+layout_mode = 0
+offset_right = 256.0
+offset_bottom = 64.0
+nine_patch_stretch = true
+texture_under = ExtResource("5_tuyoq")
+texture_over = ExtResource("6_fjrip")
+texture_progress = ExtResource("5_tuyoq")
+tint_progress = Color(0.15686275, 0.8, 0.8745098, 1)
+
 [connection signal="body_entered" from="GroundDetector" to="." method="_on_ground_detector_body_entered"]
 [connection signal="body_exited" from="GroundDetector" to="." method="_on_ground_detector_body_exited"]
+[connection signal="value_changed" from="CanvasLayer/Control/StrengthMeter" to="." method="_on_strength_meter_value_changed"]
