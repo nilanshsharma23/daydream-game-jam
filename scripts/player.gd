@@ -15,7 +15,7 @@ var coyote_time: float = 0.2
 var coyote_timer: float = 0.0
 
 @export var body_parts: Array[Sprite2D]
-@export var body_part_dictionary: Dictionary
+@export var body_part_dictionary: Dictionary[Sprite2D, CheckBox]
 @export var sacrifices: Array
 
 @onready var vignette: ColorRect = $CanvasLayer/Control/Vignette
@@ -34,9 +34,8 @@ func _ready() -> void:
 	label.text = "%s/%s" % [health, max_health]
 
 	for i in body_part_dictionary.size():
-		var checkbox = body_part_dictionary.values()[i] as CheckBox
-		var checkbox = body_part_dictionary.values()[i] as CheckBox
-		var info_button = checkbox.get_parent().get_node("InfoButton") as TextureButton
+		var checkbox: CheckBox = body_part_dictionary.values()[i]
+		var info_button: TextureButton = checkbox.get_parent().get_child(1)
 		info_button.pressed.connect(info_panel.show_info_panel.bind(sacrifices[i].sacrifice_description))
 		checkbox.toggled.connect(make_sacrifice.bind(sacrifices[i], i))
 
@@ -51,7 +50,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("attack"):
 		animation_player.play("slash")
 
-	# 🦘 Jump with coyote time
+	# Jump with coyote time
 	if event.is_action_pressed("jump") and coyote_timer > 0.0:
 		velocity.y = -jump_speed
 		coyote_timer = 0.0

@@ -5,11 +5,10 @@ const SPEED: float = 80.0
 var direction: int = 1  # 1 = right, -1 = left
 
 @onready var sprite: Sprite2D = $Sprite2D
-@onready var patrol_timer: Timer = $PatrolTimer
 
-func _ready() -> void:
-	patrol_timer.timeout.connect(_on_patrol_timer_timeout)
-	patrol_timer.start()
+#func _ready() -> void:
+	#patrol_timer.timeout.connect(_on_patrol_timer_timeout)
+	#patrol_timer.start()
 
 func _physics_process(delta: float) -> void:
 	velocity.y += GRAVITY * delta
@@ -18,5 +17,5 @@ func _physics_process(delta: float) -> void:
 
 	sprite.flip_h = direction < 0
 
-func _on_patrol_timer_timeout() -> void:
-	direction *= -1
+#func _on_patrol_timer_timeout() -> void:
+	#direction *= -1
