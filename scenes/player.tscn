@@ -1,78 +1,27 @@
-[gd_scene load_steps=14 format=3 uid="uid://csw5uytlw14x4"]
+[gd_scene load_steps=27 format=3 uid="uid://csw5uytlw14x4"]
 
 [ext_resource type="Script" uid="uid://bwh81tov15l3c" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Texture2D" uid="uid://06gnfs2bfc5l" path="res://sprites/body.png" id="3_dqkch"]
 [ext_resource type="Texture2D" uid="uid://cxx6sbxm77jux" path="res://sprites/head.png" id="3_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://bw51kkg7tu88u" path="res://sprites/leg.png" id="4_dqkch"]
-[ext_resource type="Texture2D" uid="uid://0dipxb055l2g" path="res://sprites/fill.png" id="5_tuyoq"]
-[ext_resource type="Texture2D" uid="uid://dxfthdugy0vk7" path="res://sprites/frame.png" id="6_fjrip"]
+[ext_resource type="Shader" uid="uid://b51dfru3jr2b1" path="res://flash.gdshader" id="4_smehm"]
+[ext_resource type="Texture2D" uid="uid://0dipxb055l2g" path="res://sprites/ui/fill.png" id="5_tuyoq"]
+[ext_resource type="Texture2D" uid="uid://dxfthdugy0vk7" path="res://sprites/ui/frame.png" id="6_fjrip"]
+[ext_resource type="Texture2D" uid="uid://dfm3i5ggf2hb7" path="res://sprites/slash.png" id="7_fjrip"]
+[ext_resource type="FontFile" uid="uid://cj7npol18ibqs" path="res://fonts/nokiafc22.ttf" id="8_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://ceihtajtylg5q" path="res://sprites/ui/button_normal.png" id="9_3v2ag"]
+[ext_resource type="Script" uid="uid://dsvpa07w6sl22" path="res://scripts/hurtbox.gd" id="9_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://ccv3rmex30f68" path="res://sprites/ui/button_hover.png" id="10_jej6c"]
+[ext_resource type="Texture2D" uid="uid://c1vha442bwyo5" path="res://sprites/ui/sacrifices_panel.png" id="11_f1ej7"]
+[ext_resource type="Script" uid="uid://b1g43gclbljsv" path="res://scripts/hitbox.gd" id="12_jej6c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
 size = Vector2(14, 24)
 
-[sub_resource type="Animation" id="Animation_dqkch"]
-resource_name = "walk"
-loop_mode = 1
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Limbs/LegFront:rotation")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(-2, -2, -2),
-"update": 0,
-"values": [0.0, 1.5707964, 0.0]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("Limbs/LegBack:rotation")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(-2, -2, -2),
-"update": 0,
-"values": [1.5707964, 0.0, 1.5707964]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Limbs/ArmBack:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(-2, -2, -2),
-"update": 0,
-"values": [0.0, 1.5707964, 0.0]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("Limbs/ArmFront:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.5, 1),
-"transitions": PackedFloat32Array(-2, -2, -2),
-"update": 0,
-"values": [1.5707964, 0.0, 1.5707964]
-}
-tracks/4/type = "value"
-tracks/4/imported = false
-tracks/4/enabled = true
-tracks/4/path = NodePath("Body:position")
-tracks/4/interp = 1
-tracks/4/loop_wrap = true
-tracks/4/keys = {
-"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
-"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
-"update": 0,
-"values": [Vector2(0, 0), Vector2(0, 1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 0)]
-}
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ur7pv"]
+shader = ExtResource("4_smehm")
+shader_parameter/flash_color = Color(1, 1, 1, 1)
+shader_parameter/flashing = false
 
 [sub_resource type="Animation" id="Animation_qlg0r"]
 length = 0.001
@@ -136,6 +85,42 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
+tracks/5/type = "value"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("SlashSprite:texture:region")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Rect2(0, 0, 32, 32)]
+}
+tracks/6/type = "value"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("SlashSprite:visible")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+tracks/7/type = "value"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("SlashSprite/Hitbox:rotation")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
 
 [sub_resource type="Animation" id="Animation_tuyoq"]
 resource_name = "idle"
@@ -187,6 +172,58 @@ tracks/3/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 0,
 "values": [1.5707964]
+}
+
+[sub_resource type="Animation" id="Animation_smehm"]
+resource_name = "slash"
+length = 0.26
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("SlashSprite:texture:region")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.125, 0.25),
+"transitions": PackedFloat32Array(0, 0, 0),
+"update": 0,
+"values": [Rect2(0, 0, 32, 32), Rect2(32, 0, 32, 32), Rect2(64, 0, 32, 32)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("SlashSprite:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.26),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Limbs/ArmFront:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.26),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [-1.5707964, 1.5707964]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("SlashSprite/Hitbox:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.24779166),
+"transitions": PackedFloat32Array(-2, -2),
+"update": 0,
+"values": [0.0, 3.1415927]
 }
 
 [sub_resource type="Animation" id="Animation_fjrip"]
@@ -253,16 +290,91 @@ tracks/4/keys = {
 "values": [Vector2(0, 0), Vector2(0, 1.5), Vector2(0, 0), Vector2(0, 1.5), Vector2(0, 0)]
 }
 
+[sub_resource type="Animation" id="Animation_dqkch"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Limbs/LegFront:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [0.0, 1.5707964, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Limbs/LegBack:rotation")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [1.5707964, 0.0, 1.5707964]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("Limbs/ArmBack:rotation")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [0.0, 1.5707964, 0.0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("Limbs/ArmFront:rotation")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(-2, -2, -2),
+"update": 0,
+"values": [1.5707964, 0.0, 1.5707964]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Body:position")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1),
+"transitions": PackedFloat32Array(-2, -2, -2, -2, -2),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 0)]
+}
+
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_tuyoq"]
 _data = {
 &"RESET": SubResource("Animation_qlg0r"),
 &"idle": SubResource("Animation_tuyoq"),
+&"slash": SubResource("Animation_smehm"),
 &"sprint": SubResource("Animation_fjrip"),
 &"walk": SubResource("Animation_dqkch")
 }
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qlg0r"]
 size = Vector2(14, 2)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
+atlas = ExtResource("7_fjrip")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jej6c"]
+size = Vector2(12, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_y4r1p"]
+size = Vector2(10, 21)
 
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("body_parts")]
 script = ExtResource("1_g2els")
@@ -292,6 +404,7 @@ texture = ExtResource("3_dqkch")
 
 [node name="LegFront" type="Sprite2D" parent="Limbs"]
 z_index = 1
+material = SubResource("ShaderMaterial_ur7pv")
 position = Vector2(0, 13)
 texture = ExtResource("4_dqkch")
 offset = Vector2(2, 2)
@@ -335,6 +448,7 @@ limit_top = -90
 limit_bottom = 90
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -344,16 +458,148 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="StrengthMeter" type="TextureProgressBar" parent="CanvasLayer/Control"]
-layout_mode = 0
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
 offset_right = 256.0
-offset_bottom = 64.0
+grow_vertical = 2
+
+[node name="StrengthMeter" type="TextureProgressBar" parent="CanvasLayer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
 nine_patch_stretch = true
 texture_under = ExtResource("5_tuyoq")
 texture_over = ExtResource("6_fjrip")
 texture_progress = ExtResource("5_tuyoq")
 tint_progress = Color(0.15686275, 0.8, 0.8745098, 1)
 
+[node name="HealthMeter" type="TextureProgressBar" parent="CanvasLayer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+value = 100.0
+nine_patch_stretch = true
+texture_under = ExtResource("5_tuyoq")
+texture_over = ExtResource("6_fjrip")
+texture_progress = ExtResource("5_tuyoq")
+tint_progress = Color(0.6627451, 0.23137255, 0.23137255, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/VBoxContainer/HealthMeter"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("8_y4r1p")
+theme_override_font_sizes/font_size = 24
+text = "100/100"
+
+[node name="SacrificesButton" type="TextureButton" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -80.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 80.0
+grow_horizontal = 0
+texture_normal = ExtResource("9_3v2ag")
+texture_pressed = ExtResource("10_jej6c")
+texture_hover = ExtResource("10_jej6c")
+stretch_mode = 0
+
+[node name="SacrificesPanel" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -720.0
+offset_bottom = -720.63
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/SacrificesPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.0
+offset_top = -262.0
+offset_right = 288.0
+offset_bottom = 262.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_f1ej7")
+
+[node name="Title" type="Label" parent="CanvasLayer/SacrificesPanel/TextureRect"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -120.0
+offset_top = 22.0
+offset_right = 120.0
+offset_bottom = 78.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("8_y4r1p")
+theme_override_font_sizes/font_size = 32
+text = "Sacrifices"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="SlashSprite" type="Sprite2D" parent="."]
+z_index = 2
+position = Vector2(0, 8)
+texture = SubResource("AtlasTexture_smehm")
+
+[node name="Hitbox" type="Area2D" parent="SlashSprite"]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("12_jej6c")
+metadata/_custom_type_script = "uid://b1g43gclbljsv"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="SlashSprite/Hitbox"]
+position = Vector2(4, -8.5)
+shape = SubResource("RectangleShape2D_jej6c")
+
+[node name="Hurtbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("9_ur7pv")
+metadata/_custom_type_script = "uid://dsvpa07w6sl22"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 7.5)
+shape = SubResource("RectangleShape2D_y4r1p")
+
 [connection signal="body_entered" from="GroundDetector" to="." method="_on_ground_detector_body_entered"]
 [connection signal="body_exited" from="GroundDetector" to="." method="_on_ground_detector_body_exited"]
-[connection signal="value_changed" from="CanvasLayer/Control/StrengthMeter" to="." method="_on_strength_meter_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Control/VBoxContainer/StrengthMeter" to="." method="_on_strength_meter_value_changed"]
+[connection signal="pressed" from="CanvasLayer/Control/SacrificesButton" to="." method="_on_sacrifices_button_pressed"]
+[connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
