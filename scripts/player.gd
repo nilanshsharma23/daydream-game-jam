@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 const GRAVITY: float = 400.0
-const WALK_SPEED: float = 400.0
+const WALK_SPEED: float = 200.0
 const JUMP_SPEED: float = 200
 
 var is_touching_ground: bool = false
