@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 const GRAVITY: float = 400.0
 var walk_speed: float = 100
-const JUMP_SPEED: float = 150
+var jump_speed: float = 150
 
 var is_touching_ground: bool = false
 var filled: bool = false
@@ -28,9 +28,10 @@ func _ready() -> void:
 	health_meter.get_child(0).text = "%s/%s" % [health, max_health]
 	
 	for i in len(body_part_dictionary.values()):
-		var button: TextureButton = body_part_dictionary.values()[i].get_parent().get_child(1)
-		
-		button.pressed.connect(info_panel.show_info_panel.bind(sacrifices[i].sacrifice_description))
+		var info_button: TextureButton = body_part_dictionary.values()[i].get_parent().get_child(1)
+		info_button.pressed.connect(info_panel.show_info_panel.bind(sacrifices[i].sacrifice_description))
+		var checkbox = body_part_dictionary.values()[i]
+		checkbox.toggled.connect(make_sacrifice.bind(sacrifices[i], i))
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("fill_meter"):
@@ -47,7 +48,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		animation_player.play("slash")
 	
 	if event.is_action_pressed("jump") and is_touching_ground:
-		velocity.y -= JUMP_SPEED
+		velocity.y -= jump_speed
 
 func _physics_process(delta: float) -> void:
 	velocity.y += delta * GRAVITY
@@ -107,3 +108,18 @@ func _on_sacrifices_button_pressed() -> void:
 	else:
 		sacrifices_panel.show()
 		tween.tween_property(sacrifices_panel, "position", Vector2(0, 0), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+
+func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
+	if toggled_on:
+		body_part_dictionary.keys()[index].hide()
+		max_health -= sacrifice.health_decrease
+		jump_speed += sacrifice.jump_boost
+		walk_speed += sacrifice.speed_boost
+	else:
+		body_part_dictionary.keys()[index].show()
+		max_health += sacrifice.health_decrease
+		jump_speed -= sacrifice.jump_boost
+		walk_speed -= sacrifice.speed_boost
+	
+	health_meter.get_child(0).text = "%s/%s" % [health, max_health]
+	health_meter.max_value = max_health
