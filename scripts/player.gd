@@ -11,15 +11,26 @@ var max_health: int = 100
 var health: int = 100
 
 @export var body_parts: Array[Sprite2D]
+@export var body_part_dictionary: Dictionary[Sprite2D, CheckBox]
+@export var sacrifices: Array[Sacrifice]
 
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var limbs: Node2D = $Limbs
 @onready var strength_meter: TextureProgressBar = $CanvasLayer/Control/VBoxContainer/StrengthMeter
 @onready var slash_sprite: Sprite2D = $SlashSprite
 @onready var sacrifices_panel: Control = $CanvasLayer/SacrificesPanel
+@onready var health_meter: TextureProgressBar = $CanvasLayer/Control/VBoxContainer/HealthMeter
+@onready var info_panel: TextureRect = $CanvasLayer/InfoControl/InfoPanel
 
 func _ready() -> void:
 	slash_sprite.visible = false
+	
+	health_meter.get_child(0).text = "%s/%s" % [health, max_health]
+	
+	for i in len(body_part_dictionary.values()):
+		var button: TextureButton = body_part_dictionary.values()[i].get_parent().get_child(1)
+		
+		button.pressed.connect(info_panel.show_info_panel.bind(sacrifices[i].sacrifice_description))
 
 func _process(_delta: float) -> void:
 	if Input.is_action_pressed("fill_meter"):
