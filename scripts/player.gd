@@ -14,6 +14,7 @@ var health: int = 100
 @export var body_part_dictionary: Dictionary[Sprite2D, CheckBox]
 @export var sacrifices: Array[Sacrifice]
 
+@onready var vignette: ColorRect = $CanvasLayer/Control/Vignette
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var limbs: Node2D = $Limbs
 @onready var strength_meter: TextureProgressBar = $CanvasLayer/Control/VBoxContainer/StrengthMeter
@@ -21,6 +22,7 @@ var health: int = 100
 @onready var sacrifices_panel: Control = $CanvasLayer/SacrificesPanel
 @onready var health_meter: TextureProgressBar = $CanvasLayer/Control/VBoxContainer/HealthMeter
 @onready var info_panel: TextureRect = $CanvasLayer/InfoControl/InfoPanel
+@onready var vignette_player: AnimationPlayer = $VignettePlayer
 
 func _ready() -> void:
 	slash_sprite.visible = false
@@ -115,11 +117,17 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 		max_health -= sacrifice.health_decrease
 		jump_speed += sacrifice.jump_boost
 		walk_speed += sacrifice.speed_boost
+		
+		if index == 0:
+			vignette_player.play("show")
 	else:
 		body_part_dictionary.keys()[index].show()
 		max_health += sacrifice.health_decrease
 		jump_speed -= sacrifice.jump_boost
 		walk_speed -= sacrifice.speed_boost
+		
+		if index == 0:
+			vignette_player.play("hide")
 	
 	health_meter.get_child(0).text = "%s/%s" % [health, max_health]
 	health_meter.max_value = max_health
