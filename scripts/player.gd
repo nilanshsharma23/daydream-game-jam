@@ -159,6 +159,9 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 		
 		if sacrifice.weapon_type == Sacrifice.WeaponType.MELEE:
 			melee_weapon_anchor.hide()
+		
+		if sacrifice.weapon_type == Sacrifice.WeaponType.PROJECTILE:
+			projectile_weapon_anchor.hide()
 			
 		if index == 0:
 			vignette_player.play("hide")
