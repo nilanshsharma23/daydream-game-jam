@@ -9,5 +9,5 @@ AI used for some minor bug fixing, although removed later.
 - Player sprite made by Nilansh.
 - Slimes also made by Nilansh.
 - All other assets from [itch.io](https://itch.io)
-- Sound effects from bfxr
-- Music from [OpenGameArt](https://opengameart.org)
+- Sound effects from Aksh 
+- Music from Aksh
