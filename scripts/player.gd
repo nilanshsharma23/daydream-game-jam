@@ -26,6 +26,7 @@ var knockback_tween: Tween
 @export var body_parts: Array[Sprite2D]
 @export var sacrificable_body_parts: Array[Sprite2D]
 @export var sacrifices: Array[Sacrifice]
+@export var respawn_area: RespawnArea
 
 @onready var melee_weapon_anchor: MeleeWeaponAnchor = $MeleeWeaponAnchor
 @onready var vignette: ColorRect = $CanvasLayer/Control/Vignette
@@ -137,7 +138,8 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 		
 		body_part.hide()
 		max_health -= sacrifice.health_decrease
-		health -= sacrifice.health_decrease
+		if health-sacrifice.health_decrease >0:
+			health -= sacrifice.health_decrease
 		jump_speed += sacrifice.jump_boost
 		no_of_sacrifices += 1
 		
@@ -182,6 +184,11 @@ func _on_hurtbox_hit(area: Area2D) -> void:
 		HitStop.hit_stop(0, 0.25)
 		CameraShake.shake(1, 0.1)
 		health -= area.damage
+		
+		if health <= 0:
+			respawn_area.respawn()
+			health = 100
+		
 		health_meter.value = health
 		health_meter.get_node("Label").text = "%s/%s" % [health, max_health]
 		

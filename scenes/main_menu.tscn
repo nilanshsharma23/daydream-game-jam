@@ -217,4 +217,5 @@ texture = SubResource("GradientTexture2D_7b55j")
 texture_scale = 2.5
 
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/CreditsButton" to="." method="_on_credits_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]
