@@ -1,0 +1,182 @@
+[gd_scene load_steps=17 format=3 uid="uid://crxm7cnqwvvj8"]
+
+[ext_resource type="Script" uid="uid://b25e84w5ib84i" path="res://scenes/boss.gd" id="1_7502n"]
+[ext_resource type="Shader" uid="uid://b51dfru3jr2b1" path="res://flash.gdshader" id="2_cnmgo"]
+[ext_resource type="Texture2D" uid="uid://ct5ci4rmggmn1" path="res://sprites/big_pink_slime.png" id="3_n2dgk"]
+[ext_resource type="Script" uid="uid://dsvpa07w6sl22" path="res://scripts/hurtbox.gd" id="4_qq638"]
+[ext_resource type="Script" uid="uid://b15hpxm0lirak" path="res://scripts/enemy_hitbox.gd" id="5_u4vw0"]
+[ext_resource type="Texture2D" uid="uid://0dipxb055l2g" path="res://sprites/ui/fill.png" id="6_n2dgk"]
+[ext_resource type="Texture2D" uid="uid://dxfthdugy0vk7" path="res://sprites/ui/frame.png" id="7_qq638"]
+[ext_resource type="FontFile" uid="uid://cj7npol18ibqs" path="res://fonts/nokiafc22.ttf" id="8_qq638"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_x8wqk"]
+shader = ExtResource("2_cnmgo")
+shader_parameter/flash_color = Color(1, 0.98039216, 1, 1)
+shader_parameter/flashing = false
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qfnet"]
+size = Vector2(28, 18)
+
+[sub_resource type="Animation" id="Animation_lakw3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_7t5mc"]
+resource_name = "idle"
+length = 0.6
+loop_mode = 1
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2, 0.3, 0.4, 0.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [0, 1, 2, 3, 4, 5]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pm21f"]
+_data = {
+&"RESET": SubResource("Animation_lakw3"),
+&"idle": SubResource("Animation_7t5mc")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2lf6f"]
+size = Vector2(28, 18)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x8wqk"]
+size = Vector2(28, 18)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ioxvn"]
+radius = 96.332756
+
+[node name="BigPinkSlime" type="CharacterBody2D"]
+script = ExtResource("1_7502n")
+health = 200
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+material = SubResource("ShaderMaterial_x8wqk")
+texture = ExtResource("3_n2dgk")
+hframes = 7
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_qfnet")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_pm21f")
+}
+autoplay = "idle"
+
+[node name="Hurtbox" type="Area2D" parent="."]
+script = ExtResource("4_qq638")
+metadata/_custom_type_script = "uid://dsvpa07w6sl22"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hurtbox"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_2lf6f")
+
+[node name="PatrolTimer" type="Timer" parent="."]
+wait_time = 2.5
+autostart = true
+
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[node name="EnemyHitbox" type="Area2D" parent="."]
+script = ExtResource("5_u4vw0")
+damage = 10
+metadata/_custom_type_script = "uid://b15hpxm0lirak"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox"]
+position = Vector2(0, 5)
+shape = SubResource("RectangleShape2D_x8wqk")
+
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_ioxvn")
+
+[node name="PlayerRay" type="RayCast2D" parent="."]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HealthBar" type="TextureProgressBar" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -152.0
+offset_top = 32.0
+offset_right = 148.0
+offset_bottom = 82.0
+grow_horizontal = 2
+pivot_offset = Vector2(150, 0)
+max_value = 200.0
+value = 200.0
+nine_patch_stretch = true
+stretch_margin_left = 3
+stretch_margin_top = 3
+stretch_margin_right = 3
+stretch_margin_bottom = 3
+texture_under = ExtResource("6_n2dgk")
+texture_over = ExtResource("7_qq638")
+texture_progress = ExtResource("6_n2dgk")
+tint_under = Color(1, 1, 1, 0)
+tint_progress = Color(0.47843137, 0.26666668, 0.2901961, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/Control/HealthBar"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -20.0
+offset_top = -11.5
+offset_right = 20.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("8_qq638")
+theme_override_font_sizes/font_size = 24
+text = "200/200"
+
+[connection signal="health_changed" from="." to="." method="_on_health_changed"]
+[connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
+[connection signal="timeout" from="PatrolTimer" to="." method="_on_patrol_timer_timeout"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

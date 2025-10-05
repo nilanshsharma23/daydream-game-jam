@@ -1,4 +1,7 @@
 extends CharacterBody2D
+class_name Enemy
+
+signal health_changed(new_health: int)
 
 const GRAVITY: float = 400.0
 const SPEED: float = 50.0
@@ -39,7 +42,11 @@ func _on_patrol_timer_timeout() -> void:
 
 func _on_hurtbox_hit(area: Area2D) -> void:
 	if area is PlayerHitbox:
+		if health - area.damage <= 0:
+			queue_free()
+		
 		health -= area.damage
+		health_changed.emit(health)
 		sprite.material.set_shader_parameter("flashing", true)
 		hit_timer.start()
 		receive_knockback(area.global_position, area.damage, Vector2(25, 25))

@@ -12,7 +12,7 @@ shader_parameter/flash_color = Color(1, 0.98039216, 1, 1)
 shader_parameter/flashing = false
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qfnet"]
-size = Vector2(14, 9)
+size = Vector2(28, 18)
 
 [sub_resource type="Animation" id="Animation_lakw3"]
 length = 0.001

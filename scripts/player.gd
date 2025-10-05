@@ -200,7 +200,7 @@ func _on_hurtbox_hit(area: Area2D) -> void:
 func _on_pause_button_pressed() -> void:
 	pause_panel.show()
 	var tween: Tween = get_tree().create_tween()
-	tween.tween_property(pause_panel.get_child(1), "position", Vector2(352, 98), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.tween_property(pause_panel.get_child(1), "position", Vector2(pause_panel.get_child(1).position.x, 98), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	tween.tween_callback(pause_game)
 
 func pause_game() -> void:
