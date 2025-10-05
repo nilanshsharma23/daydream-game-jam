@@ -34,6 +34,7 @@ const SACRIFICE_CHECKBOX = preload("uid://dt4ne3fhxgr4g")
 @onready var info_panel: InfoPanel = $CanvasLayer/InfoControl/InfoPanel
 @onready var vignette_player: AnimationPlayer = $VignettePlayer
 @onready var sacrifice_checkbox_container: VBoxContainer = $CanvasLayer/SacrificesPanel/TextureRect/SacrificeCheckboxContainer
+@onready var projectile_weapon_anchor: ProjectileWeaponAnchor = $ProjectileWeaponAnchor
 
 func _ready() -> void:
 	var label = health_meter.get_node("Label") as Label
@@ -57,8 +58,12 @@ func _process(_delta: float) -> void:
 		animation_player.play("sprint" if walk_speed >= 200.0 else "walk")
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack") and melee_weapon_anchor.visible:
-		melee_weapon_anchor.swing_weapon()
+	if event.is_action_pressed("attack"):
+		if melee_weapon_anchor.visible:
+			melee_weapon_anchor.swing_weapon()
+		
+		if projectile_weapon_anchor.visible:
+			projectile_weapon_anchor.shoot()
 
 	# Jump with coyote time
 	if event.is_action_pressed("jump") and coyote_timer > 0.0:
@@ -122,17 +127,26 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 			checkboxes[index].get_child(0).button_pressed = false
 			return
 		
+		if (melee_weapon_anchor.visible or projectile_weapon_anchor.visible) and sacrifice.weapon_type != Sacrifice.WeaponType.NONE:
+			info_panel.show_info_panel("You already have a weapon")
+			checkboxes[index].get_child(0).button_pressed = false
+			return
+		
 		body_part.hide()
 		max_health -= sacrifice.health_decrease
 		health -= sacrifice.health_decrease
 		jump_speed += sacrifice.jump_boost
-		walk_speed += sacrifice.speed_boost
 		no_of_sacrifices += 1
 		
 		if sacrifice.weapon_type == Sacrifice.WeaponType.MELEE:
 			melee_weapon_anchor.get_child(0).get_child(0).damage = sacrifice.damage
 			melee_weapon_anchor.get_child(0).texture = sacrifice.melee_weapon_sprite
 			melee_weapon_anchor.show()
+		
+		if sacrifice.weapon_type == Sacrifice.WeaponType.PROJECTILE:
+			projectile_weapon_anchor.get_child(0).texture = sacrifice.projectile_weapon_sprite
+			projectile_weapon_anchor.projectile_scene = sacrifice.projectile
+			projectile_weapon_anchor.show()
 		
 		if index == 0:
 			vignette_player.play("show")
@@ -141,7 +155,6 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 		max_health += sacrifice.health_decrease
 		health += sacrifice.health_decrease
 		jump_speed -= sacrifice.jump_boost
-		walk_speed -= sacrifice.speed_boost
 		no_of_sacrifices -= 1
 		
 		if sacrifice.weapon_type == Sacrifice.WeaponType.MELEE:

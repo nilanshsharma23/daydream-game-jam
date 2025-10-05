@@ -362,4 +362,7 @@ shape = SubResource("RectangleShape2D_qfnet")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Enemy/Hurtbox"]
 shape = SubResource("RectangleShape2D_4mrxx")
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.21568628, 0.2, 0.39607844, 1)
+
 [connection signal="hit" from="Enemy/Hurtbox" to="Enemy" method="_on_hurtbox_hit"]

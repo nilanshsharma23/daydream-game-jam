@@ -1,7 +1,8 @@
-[gd_scene load_steps=42 format=3 uid="uid://csw5uytlw14x4"]
+[gd_scene load_steps=47 format=3 uid="uid://csw5uytlw14x4"]
 
 [ext_resource type="Script" uid="uid://bwh81tov15l3c" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://bmafa12hq3xth" path="res://scripts/sacrifice.gd" id="2_4r5pv"]
+[ext_resource type="PackedScene" uid="uid://djedg482ud2i6" path="res://scripts/gun_projectile.tscn" id="3_4ni07"]
 [ext_resource type="Texture2D" uid="uid://06gnfs2bfc5l" path="res://sprites/body.png" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://lnooj38dlgwd" path="res://scripts/melee_weapon_anchor.gd" id="3_fulsm"]
 [ext_resource type="Texture2D" uid="uid://cxx6sbxm77jux" path="res://sprites/head.png" id="3_qhqgy"]
@@ -10,7 +11,9 @@
 [ext_resource type="Shader" uid="uid://b51dfru3jr2b1" path="res://flash.gdshader" id="4_smehm"]
 [ext_resource type="Script" uid="uid://cbbklwsyikfrp" path="res://scripts/player_hitbox.gd" id="5_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://0dipxb055l2g" path="res://sprites/ui/fill.png" id="5_tuyoq"]
+[ext_resource type="Script" uid="uid://ch4k83iel5nhp" path="res://scripts/projectile_weapon_anchor.gd" id="6_a38lo"]
 [ext_resource type="Texture2D" uid="uid://dxfthdugy0vk7" path="res://sprites/ui/frame.png" id="6_fjrip"]
+[ext_resource type="Texture2D" uid="uid://brfripy2aib5i" path="res://sprites/weapons/gun.png" id="7_4ni07"]
 [ext_resource type="FontFile" uid="uid://cj7npol18ibqs" path="res://fonts/nokiafc22.ttf" id="8_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://ceihtajtylg5q" path="res://sprites/ui/button_normal.png" id="9_3v2ag"]
 [ext_resource type="Script" uid="uid://dsvpa07w6sl22" path="res://scripts/hurtbox.gd" id="9_ur7pv"]
@@ -19,6 +22,7 @@
 [ext_resource type="Shader" uid="uid://du2e5fg6wei1m" path="res://vignette.tres" id="11_fulsm"]
 [ext_resource type="Texture2D" uid="uid://bsybvefu1phog" path="res://sprites/ui/panel2.png" id="13_60mlk"]
 [ext_resource type="Script" uid="uid://cj3nue1nbstmk" path="res://scripts/info_panel.gd" id="14_i4ail"]
+[ext_resource type="Gradient" uid="uid://di617fwnhavoa" path="res://gradient.tres" id="20_60mlk"]
 
 [sub_resource type="Resource" id="Resource_60mlk"]
 script = ExtResource("2_4r5pv")
@@ -31,32 +35,33 @@ metadata/_custom_type_script = "uid://bmafa12hq3xth"
 script = ExtResource("2_4r5pv")
 name = "Upper Body"
 health_decrease = 30
-speed_boost = 100
-sacrifice_description = "Lose 30 health from max health, slight speed boost"
-weapon_type = 0
+sacrifice_description = "Lose 30 health from max health, get an awesome gun"
+weapon_type = 1
 damage = 20
-melee_weapon_sprite = ExtResource("4_4r5pv")
+projectile_weapon_sprite = ExtResource("7_4ni07")
+projectile = ExtResource("3_4ni07")
 metadata/_custom_type_script = "uid://bmafa12hq3xth"
 
 [sub_resource type="Resource" id="Resource_fulsm"]
 script = ExtResource("2_4r5pv")
 name = "Lower Body"
 health_decrease = 30
-speed_boost = 100
 sacrifice_description = "Lose 30 health from max health, slight speed boost"
 metadata/_custom_type_script = "uid://bmafa12hq3xth"
 
 [sub_resource type="Resource" id="Resource_a38lo"]
 script = ExtResource("2_4r5pv")
-name = "Front Leg"
+name = "Front Arm"
 health_decrease = -10
-jump_boost = 50
-sacrifice_description = "Lose 10 from max health, but slight jump boost"
+sacrifice_description = "Lose 10 from max health, but get a blue lightsaber that deals 10 damage"
+weapon_type = 0
+damage = 10
+melee_weapon_sprite = ExtResource("4_4r5pv")
 metadata/_custom_type_script = "uid://bmafa12hq3xth"
 
 [sub_resource type="Resource" id="Resource_i4ail"]
 script = ExtResource("2_4r5pv")
-name = "Back Leg"
+name = "Back Arm"
 health_decrease = -10
 jump_boost = 50
 sacrifice_description = "Lose 10 from max health, but slight jump boost"
@@ -406,11 +411,16 @@ _data = {
 &"show": SubResource("Animation_i4ail")
 }
 
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_60mlk"]
+gradient = ExtResource("20_60mlk")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("body_parts", "sacrificable_body_parts")]
 script = ExtResource("1_g2els")
 body_parts = [NodePath("Body/Head"), NodePath("Body/Ball1"), NodePath("Body/Ball2")]
-sacrificable_body_parts = [NodePath("Body/Head"), NodePath("Body/Ball1"), NodePath("Body/Ball2"), NodePath("Limbs/LegFront"), NodePath("Limbs/LegBack")]
-sacrifices = [SubResource("Resource_60mlk"), SubResource("Resource_4r5pv"), SubResource("Resource_fulsm"), SubResource("Resource_a38lo"), SubResource("Resource_i4ail")]
+sacrificable_body_parts = [NodePath("Body/Head"), NodePath("Body/Ball1"), NodePath("Body/Ball2"), NodePath("Limbs/ArmFront"), NodePath("Limbs/ArmBack")]
+sacrifices = Array[ExtResource("2_4r5pv")]([SubResource("Resource_60mlk"), SubResource("Resource_4r5pv"), SubResource("Resource_fulsm"), SubResource("Resource_a38lo"), SubResource("Resource_i4ail")])
 
 [node name="MeleeWeaponAnchor" type="Node2D" parent="."]
 visible = false
@@ -430,6 +440,22 @@ metadata/_custom_type_script = "uid://cbbklwsyikfrp"
 [node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeWeaponAnchor/MeleeWeaponSprite/PlayerHitbox"]
 position = Vector2(-0.5, -1.5)
 shape = SubResource("RectangleShape2D_60mlk")
+
+[node name="ProjectileWeaponAnchor" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, 7)
+script = ExtResource("6_a38lo")
+
+[node name="ProjectileWeapon" type="Sprite2D" parent="ProjectileWeaponAnchor"]
+position = Vector2(9, 0)
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("7_4ni07")
+
+[node name="ProjectileInstantiationMarker" type="Marker2D" parent="ProjectileWeaponAnchor"]
+
+[node name="DelayTimer" type="Timer" parent="ProjectileWeaponAnchor"]
+wait_time = 0.2
+one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 6)
@@ -730,6 +756,10 @@ shape = SubResource("RectangleShape2D_y4r1p")
 libraries = {
 &"": SubResource("AnimationLibrary_4ni07")
 }
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_60mlk")
+texture_scale = 2.5
 
 [connection signal="body_entered" from="GroundDetector" to="." method="_on_ground_detector_body_entered"]
 [connection signal="body_exited" from="GroundDetector" to="." method="_on_ground_detector_body_exited"]
