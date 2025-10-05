@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://bbbx2470typg5" path="res://sprites/background/Layer_0002_7.png" id="10_w6ouw"]
 
 [node name="Parallax" type="Node2D"]
+z_index = -5
 
 [node name="Parallax2D" type="Parallax2D" parent="."]
 scroll_scale = Vector2(0.1, 1)

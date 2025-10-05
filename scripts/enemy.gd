@@ -17,6 +17,8 @@ const HURT = preload("uid://dej72cqyem30i")
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var hit_timer: Timer = $HitTimer
 
+var seconds: float = 2
+
 func _physics_process(delta: float) -> void:
 	velocity.y += GRAVITY * delta
 	

@@ -44,6 +44,8 @@ func _ready() -> void:
 	var label = health_meter.get_node("Label") as Label
 	label.text = "%s/%s" % [health, max_health]
 	
+	vignette_player.play("hide")
+	
 	for i in len(sacrificable_body_parts):
 		var sacrifice_checkbox: HBoxContainer = SACRIFICE_CHECKBOX.instantiate()
 		sacrifice_checkbox.get_child(0).text = sacrifices[i].name
