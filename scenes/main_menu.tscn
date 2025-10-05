@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://c7ywkgnarodm3"]
+[gd_scene load_steps=17 format=3 uid="uid://c7ywkgnarodm3"]
 
 [ext_resource type="FontFile" uid="uid://cj7npol18ibqs" path="res://fonts/nokiafc22.ttf" id="1_06t4h"]
 [ext_resource type="Script" uid="uid://bfy6jmdac2dvv" path="res://scripts/main_menu.gd" id="1_8ln24"]
@@ -13,8 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://c1gdshhau8yw3" path="res://sprites/background/Layer_0004_Lights.png" id="10_hstxw"]
 [ext_resource type="Texture2D" uid="uid://dvyu55kafjqr5" path="res://sprites/background/Layer_0003_6.png" id="11_8egab"]
 [ext_resource type="Texture2D" uid="uid://bbbx2470typg5" path="res://sprites/background/Layer_0002_7.png" id="12_gw5y6"]
+[ext_resource type="Gradient" uid="uid://di617fwnhavoa" path="res://gradient.tres" id="14_1ajci"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_rcqid"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_7b55j"]
+gradient = ExtResource("14_1ajci")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
 
 [node name="Main Menu" type="Node2D"]
 script = ExtResource("1_8ln24")
@@ -193,4 +199,22 @@ repeat_times = 8
 scale = Vector2(0.75, 0.75)
 texture = ExtResource("12_gw5y6")
 
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.21568628, 0.2, 0.39607844, 1)
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_7b55j")
+texture_scale = 2.5
+
+[node name="PointLight2D2" type="PointLight2D" parent="."]
+position = Vector2(216, -52)
+texture = SubResource("GradientTexture2D_7b55j")
+texture_scale = 2.5
+
+[node name="PointLight2D3" type="PointLight2D" parent="."]
+position = Vector2(407, -40)
+texture = SubResource("GradientTexture2D_7b55j")
+texture_scale = 2.5
+
 [connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/PlayButton" to="." method="_on_play_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/VBoxContainer/QuitButton" to="." method="_on_quit_button_pressed"]

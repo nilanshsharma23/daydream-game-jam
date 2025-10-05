@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://bnabitkqh5461"]
+
+[ext_resource type="Script" uid="uid://dxgfsge0kdmeb" path="res://scripts/projectile.gd" id="1_65x0d"]
+[ext_resource type="Texture2D" uid="uid://c7yd437ubkb1l" path="res://sprites/weapons/beam.png" id="2_wj0v0"]
+[ext_resource type="Script" uid="uid://cbbklwsyikfrp" path="res://scripts/player_hitbox.gd" id="3_qnu4f"]
+[ext_resource type="Gradient" uid="uid://di617fwnhavoa" path="res://gradient.tres" id="4_5iynu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p1l71"]
+size = Vector2(16, 8)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ewaoa"]
+gradient = ExtResource("4_5iynu")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="BeamProjectile" type="Node2D" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("1_65x0d")
+speed = 250.0
+damage = 30
+hitbox = NodePath("PlayerHitbox")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_wj0v0")
+
+[node name="PlayerHitbox" type="Area2D" parent="."]
+script = ExtResource("3_qnu4f")
+metadata/_custom_type_script = "uid://cbbklwsyikfrp"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
+shape = SubResource("RectangleShape2D_p1l71")
+
+[node name="DestroyTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_ewaoa")
+texture_scale = 0.5

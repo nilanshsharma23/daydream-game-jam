@@ -2,22 +2,22 @@
 
 [ext_resource type="Script" uid="uid://bwh81tov15l3c" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://bmafa12hq3xth" path="res://scripts/sacrifice.gd" id="2_4r5pv"]
-[ext_resource type="PackedScene" uid="uid://djedg482ud2i6" path="res://scripts/gun_projectile.tscn" id="3_4ni07"]
+[ext_resource type="PackedScene" uid="uid://djedg482ud2i6" path="res://scenes/gun_projectile.tscn" id="3_4ni07"]
 [ext_resource type="Texture2D" uid="uid://06gnfs2bfc5l" path="res://sprites/body.png" id="3_dqkch"]
 [ext_resource type="Script" uid="uid://lnooj38dlgwd" path="res://scripts/melee_weapon_anchor.gd" id="3_fulsm"]
 [ext_resource type="Texture2D" uid="uid://cxx6sbxm77jux" path="res://sprites/head.png" id="3_qhqgy"]
 [ext_resource type="Texture2D" uid="uid://dopy3tk3ni7r1" path="res://sprites/weapons/lightsaber.png" id="4_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://bw51kkg7tu88u" path="res://sprites/leg.png" id="4_dqkch"]
 [ext_resource type="Shader" uid="uid://b51dfru3jr2b1" path="res://flash.gdshader" id="4_smehm"]
+[ext_resource type="PackedScene" uid="uid://bnabitkqh5461" path="res://scenes/beam_projectile.tscn" id="5_4ni07"]
 [ext_resource type="Script" uid="uid://cbbklwsyikfrp" path="res://scripts/player_hitbox.gd" id="5_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://0dipxb055l2g" path="res://sprites/ui/fill.png" id="5_tuyoq"]
 [ext_resource type="Script" uid="uid://ch4k83iel5nhp" path="res://scripts/projectile_weapon_anchor.gd" id="6_a38lo"]
 [ext_resource type="Texture2D" uid="uid://dxfthdugy0vk7" path="res://sprites/ui/frame.png" id="6_fjrip"]
+[ext_resource type="Texture2D" uid="uid://cesnnupc1hyg" path="res://sprites/weapons/energy_blaster.png" id="6_l71n6"]
 [ext_resource type="Texture2D" uid="uid://brfripy2aib5i" path="res://sprites/weapons/gun.png" id="7_4ni07"]
 [ext_resource type="FontFile" uid="uid://cj7npol18ibqs" path="res://fonts/nokiafc22.ttf" id="8_y4r1p"]
-[ext_resource type="Texture2D" uid="uid://ceihtajtylg5q" path="res://sprites/ui/button_normal.png" id="9_3v2ag"]
 [ext_resource type="Script" uid="uid://dsvpa07w6sl22" path="res://scripts/hurtbox.gd" id="9_ur7pv"]
-[ext_resource type="Texture2D" uid="uid://ccv3rmex30f68" path="res://sprites/ui/button_hover.png" id="10_jej6c"]
 [ext_resource type="Texture2D" uid="uid://c1vha442bwyo5" path="res://sprites/ui/sacrifices_panel.png" id="11_f1ej7"]
 [ext_resource type="Shader" uid="uid://du2e5fg6wei1m" path="res://vignette.tres" id="11_fulsm"]
 [ext_resource type="Texture2D" uid="uid://bsybvefu1phog" path="res://sprites/ui/panel2.png" id="13_60mlk"]
@@ -34,8 +34,8 @@ metadata/_custom_type_script = "uid://bmafa12hq3xth"
 [sub_resource type="Resource" id="Resource_4r5pv"]
 script = ExtResource("2_4r5pv")
 name = "Upper Body"
-health_decrease = 30
-sacrifice_description = "Lose 30 health from max health, get an awesome gun"
+health_decrease = 20
+sacrifice_description = "Lose 20 health from max health, get an awesome gun that deals 20 damage"
 weapon_type = 1
 damage = 20
 projectile_weapon_sprite = ExtResource("7_4ni07")
@@ -46,7 +46,11 @@ metadata/_custom_type_script = "uid://bmafa12hq3xth"
 script = ExtResource("2_4r5pv")
 name = "Lower Body"
 health_decrease = 30
-sacrifice_description = "Lose 30 health from max health, slight speed boost"
+sacrifice_description = "Lose 30 health from max health, but get a energy blaster that deals 30 damage"
+weapon_type = 1
+damage = 30
+projectile_weapon_sprite = ExtResource("6_l71n6")
+projectile = ExtResource("5_4ni07")
 metadata/_custom_type_script = "uid://bmafa12hq3xth"
 
 [sub_resource type="Resource" id="Resource_a38lo"]
@@ -520,8 +524,6 @@ shape = SubResource("RectangleShape2D_qlg0r")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 zoom = Vector2(4, 4)
-limit_top = -90
-limit_bottom = 90
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -541,15 +543,6 @@ anchors_preset = 9
 anchor_bottom = 1.0
 offset_right = 256.0
 grow_vertical = 2
-
-[node name="StrengthMeter" type="TextureProgressBar" parent="CanvasLayer/Control/VBoxContainer"]
-custom_minimum_size = Vector2(256, 64)
-layout_mode = 2
-nine_patch_stretch = true
-texture_under = ExtResource("5_tuyoq")
-texture_over = ExtResource("6_fjrip")
-texture_progress = ExtResource("5_tuyoq")
-tint_progress = Color(0.15686275, 0.8, 0.8745098, 1)
 
 [node name="HealthMeter" type="TextureProgressBar" parent="CanvasLayer/Control/VBoxContainer"]
 custom_minimum_size = Vector2(256, 64)
@@ -584,22 +577,6 @@ theme_override_constants/shadow_outline_size = 0
 theme_override_fonts/font = ExtResource("8_y4r1p")
 theme_override_font_sizes/font_size = 24
 text = "100/100"
-
-[node name="SacrificesButton" type="TextureButton" parent="CanvasLayer/Control"]
-z_index = 2
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -80.0
-offset_top = 16.0
-offset_right = -16.0
-offset_bottom = 80.0
-grow_horizontal = 0
-texture_normal = ExtResource("9_3v2ag")
-texture_pressed = ExtResource("10_jej6c")
-texture_hover = ExtResource("10_jej6c")
-stretch_mode = 0
 
 [node name="Vignette" type="ColorRect" parent="CanvasLayer/Control"]
 material = SubResource("ShaderMaterial_4r5pv")
@@ -742,8 +719,6 @@ vertical_alignment = 1
 autowrap_mode = 2
 
 [node name="Hurtbox" type="Area2D" parent="."]
-collision_layer = 4
-collision_mask = 4
 script = ExtResource("9_ur7pv")
 metadata/_custom_type_script = "uid://dsvpa07w6sl22"
 
@@ -762,7 +737,5 @@ texture_scale = 2.5
 
 [connection signal="body_entered" from="GroundDetector" to="." method="_on_ground_detector_body_entered"]
 [connection signal="body_exited" from="GroundDetector" to="." method="_on_ground_detector_body_exited"]
-[connection signal="value_changed" from="CanvasLayer/Control/VBoxContainer/StrengthMeter" to="." method="_on_strength_meter_value_changed"]
-[connection signal="pressed" from="CanvasLayer/Control/SacrificesButton" to="." method="_on_sacrifices_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/InfoControl/InfoPanel/CloseButton" to="CanvasLayer/InfoControl/InfoPanel" method="_on_close_button_pressed"]
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]

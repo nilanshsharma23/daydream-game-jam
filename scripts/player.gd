@@ -5,7 +5,6 @@ var walk_speed: float = 100.0
 var jump_speed: float = 150.0
 
 var is_touching_ground: bool = false
-var filled: bool = false
 
 var max_health: int = 100
 var health: int = 100
@@ -28,7 +27,6 @@ const SACRIFICE_CHECKBOX = preload("uid://dt4ne3fhxgr4g")
 @onready var vignette: ColorRect = $CanvasLayer/Control/Vignette
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 @onready var limbs: Node2D = $Limbs
-@onready var strength_meter: TextureProgressBar = $CanvasLayer/Control/VBoxContainer/StrengthMeter
 @onready var sacrifices_panel: Control = $CanvasLayer/SacrificesPanel
 @onready var health_meter: TextureProgressBar = $CanvasLayer/Control/VBoxContainer/HealthMeter
 @onready var info_panel: InfoPanel = $CanvasLayer/InfoControl/InfoPanel
@@ -37,6 +35,7 @@ const SACRIFICE_CHECKBOX = preload("uid://dt4ne3fhxgr4g")
 @onready var projectile_weapon_anchor: ProjectileWeaponAnchor = $ProjectileWeaponAnchor
 
 func _ready() -> void:
+	CameraShake.camera = $Camera2D
 	var label = health_meter.get_node("Label") as Label
 	label.text = "%s/%s" % [health, max_health]
 	
@@ -49,9 +48,6 @@ func _ready() -> void:
 		checkboxes.append(sacrifice_checkbox)
 
 func _process(_delta: float) -> void:
-	if Input.is_action_pressed("fill_meter"):
-		strength_meter.value += 1
-
 	melee_weapon_anchor.pos_to_point_at = (get_local_mouse_position() - melee_weapon_anchor.position).normalized()
 	
 	if velocity.x != 0.0 and is_touching_ground:
@@ -69,6 +65,16 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("jump") and coyote_timer > 0.0:
 		velocity.y = -jump_speed
 		coyote_timer = 0.0
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("open_menu"):
+		var tween: Tween = create_tween()
+		if sacrifices_panel.visible:
+			tween.tween_property(sacrifices_panel, "position", Vector2(0, -720), 0.25).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
+			tween.tween_callback(sacrifices_panel.hide)
+		else:
+			sacrifices_panel.show()
+			tween.tween_property(sacrifices_panel, "position", Vector2(0, 0), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 
 func _physics_process(delta: float) -> void:
 	# Gravity
@@ -95,9 +101,6 @@ func _physics_process(delta: float) -> void:
 	if Input.is_action_just_released("jump") and velocity.y < 0.0:
 		velocity.y *= 0.5
 
-	if filled:
-		print("filled")
-
 	move_and_slide()
 
 func _on_ground_detector_body_entered(_body: Node2D) -> void:
@@ -106,18 +109,6 @@ func _on_ground_detector_body_entered(_body: Node2D) -> void:
 
 func _on_ground_detector_body_exited(_body: Node2D) -> void:
 	is_touching_ground = false
-
-func _on_strength_meter_value_changed(value: float) -> void:
-	filled = value == 100.0
-
-func _on_sacrifices_button_pressed() -> void:
-	var tween: Tween = create_tween()
-	if sacrifices_panel.visible:
-		tween.tween_property(sacrifices_panel, "position", Vector2(0, -720), 0.25).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
-		tween.tween_callback(sacrifices_panel.hide)
-	else:
-		sacrifices_panel.show()
-		tween.tween_property(sacrifices_panel, "position", Vector2(0, 0), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 
 func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 	var body_part: Sprite2D = sacrificable_body_parts[index]
@@ -141,6 +132,7 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 		if sacrifice.weapon_type == Sacrifice.WeaponType.MELEE:
 			melee_weapon_anchor.get_child(0).get_child(0).damage = sacrifice.damage
 			melee_weapon_anchor.get_child(0).texture = sacrifice.melee_weapon_sprite
+			melee_weapon_anchor.get_child(0).get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
 			melee_weapon_anchor.show()
 		
 		if sacrifice.weapon_type == Sacrifice.WeaponType.PROJECTILE:
@@ -159,6 +151,7 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 		
 		if sacrifice.weapon_type == Sacrifice.WeaponType.MELEE:
 			melee_weapon_anchor.hide()
+			melee_weapon_anchor.get_child(0).get_child(0).process_mode = Node.PROCESS_MODE_DISABLED
 		
 		if sacrifice.weapon_type == Sacrifice.WeaponType.PROJECTILE:
 			projectile_weapon_anchor.hide()

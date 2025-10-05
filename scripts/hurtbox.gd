@@ -4,8 +4,7 @@ class_name Hurtbox
 signal hit(area: Area2D)
 
 func _ready() -> void:
-	self.collision_layer = 3
-	self.collision_mask = 3
+	area_entered.connect(_on_area_entered)
 
 func _on_area_entered(area: Area2D) -> void:
 	if area is Hitbox:

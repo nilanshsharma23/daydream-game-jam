@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cesnnupc1hyg"
-path="res://.godot/imported/energy_blaster.png-1ef5f8cf816e1271ad74d16595ecc64b.ctex"
+uid="uid://b4aqc8uov4hi0"
+path="res://.godot/imported/brown_slime.png-0ec4d89fd7073416758f0ac7d7c47568.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://sprites/energy_blaster.png"
-dest_files=["res://.godot/imported/energy_blaster.png-1ef5f8cf816e1271ad74d16595ecc64b.ctex"]
+source_file="res://sprites/brown_slime.png"
+dest_files=["res://.godot/imported/brown_slime.png-0ec4d89fd7073416758f0ac7d7c47568.ctex"]
 
 [params]
 

@@ -1,0 +1,41 @@
+[gd_scene load_steps=7 format=3 uid="uid://djedg482ud2i6"]
+
+[ext_resource type="Script" uid="uid://dxgfsge0kdmeb" path="res://scripts/projectile.gd" id="1_h6kry"]
+[ext_resource type="Texture2D" uid="uid://c1q02pdl68h3x" path="res://sprites/weapons/bullet.png" id="2_7hgrc"]
+[ext_resource type="Script" uid="uid://cbbklwsyikfrp" path="res://scripts/player_hitbox.gd" id="3_vhan6"]
+[ext_resource type="Gradient" uid="uid://di617fwnhavoa" path="res://gradient.tres" id="4_7hgrc"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_544ep"]
+size = Vector2(8, 8)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_vhan6"]
+gradient = ExtResource("4_7hgrc")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="GunProjectile" type="Node2D" node_paths=PackedStringArray("hitbox")]
+script = ExtResource("1_h6kry")
+speed = 200.0
+damage = 20
+hitbox = NodePath("PlayerHitbox")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+scale = Vector2(0.5, 0.5)
+texture = ExtResource("2_7hgrc")
+
+[node name="PlayerHitbox" type="Area2D" parent="."]
+script = ExtResource("3_vhan6")
+metadata/_custom_type_script = "uid://cbbklwsyikfrp"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerHitbox"]
+shape = SubResource("RectangleShape2D_544ep")
+
+[node name="DestroyTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[node name="PointLight2D" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_vhan6")
+texture_scale = 0.5

@@ -5,6 +5,8 @@ class_name ProjectileWeaponAnchor
 @onready var delay_timer: Timer = $DelayTimer
 @onready var projectile_weapon: Sprite2D = $ProjectileWeapon
 
+const SHOOT: AudioStream = preload("uid://dm36rawvf4vnj")
+
 var projectile_scene: PackedScene
 
 func _process(_delta: float) -> void:
@@ -24,5 +26,8 @@ func shoot() -> void:
 	var tween = get_tree().create_tween()
 	tween.tween_property(projectile_weapon, "scale", Vector2(0.65, 0.85), 0.05).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 	tween.tween_property(projectile_weapon, "scale", Vector2(0.75, 0.75), 0.05).set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_BACK)
+	
+	SoundManager.play_sound_with_random_pitch(SHOOT)
+	CameraShake.shake(1, 0.1)
 	
 	delay_timer.start()
