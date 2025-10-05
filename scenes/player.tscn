@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://csw5uytlw14x4"]
+[gd_scene load_steps=50 format=3 uid="uid://csw5uytlw14x4"]
 
 [ext_resource type="Script" uid="uid://bwh81tov15l3c" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://bmafa12hq3xth" path="res://scripts/sacrifice.gd" id="2_4r5pv"]
@@ -64,14 +64,6 @@ sacrifice_description = "Lose 10 from max health, but get a blue lightsaber that
 weapon_type = 0
 damage = 10
 melee_weapon_sprite = ExtResource("4_4r5pv")
-metadata/_custom_type_script = "uid://bmafa12hq3xth"
-
-[sub_resource type="Resource" id="Resource_i4ail"]
-script = ExtResource("2_4r5pv")
-name = "Back Arm"
-health_decrease = -10
-jump_boost = 50
-sacrifice_description = "Lose 10 from max health, but slight jump boost"
 metadata/_custom_type_script = "uid://bmafa12hq3xth"
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_60mlk"]
@@ -435,8 +427,8 @@ _data = {
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("body_parts", "sacrificable_body_parts")]
 script = ExtResource("1_g2els")
 body_parts = [NodePath("Body/Head"), NodePath("Body/Ball1"), NodePath("Body/Ball2")]
-sacrificable_body_parts = [NodePath("Body/Head"), NodePath("Body/Ball1"), NodePath("Body/Ball2"), NodePath("Limbs/ArmFront"), NodePath("Limbs/ArmBack")]
-sacrifices = Array[ExtResource("2_4r5pv")]([SubResource("Resource_60mlk"), SubResource("Resource_4r5pv"), SubResource("Resource_fulsm"), SubResource("Resource_a38lo"), SubResource("Resource_i4ail")])
+sacrificable_body_parts = [NodePath("Body/Head"), NodePath("Body/Ball1"), NodePath("Body/Ball2"), NodePath("Limbs/ArmFront")]
+sacrifices = Array[ExtResource("2_4r5pv")]([SubResource("Resource_60mlk"), SubResource("Resource_4r5pv"), SubResource("Resource_fulsm"), SubResource("Resource_a38lo")])
 
 [node name="MeleeWeaponAnchor" type="Node2D" parent="."]
 visible = false
@@ -632,6 +624,23 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(1, 1, 1, 0.3647059)
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+offset_left = 8.0
+offset_top = 72.0
+offset_right = 458.0
+offset_bottom = 102.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("8_y4r1p")
+theme_override_font_sizes/font_size = 24
+text = "Press [TAB] for sacrifice menu"
 
 [node name="SacrificesPanel" type="Control" parent="CanvasLayer"]
 visible = false

@@ -1,0 +1,224 @@
+[gd_scene load_steps=15 format=3 uid="uid://ba6mhc4gs2sqt"]
+
+[ext_resource type="Script" uid="uid://bggh5ficwid6e" path="res://game_over_screen.gd" id="1_x8ovf"]
+[ext_resource type="Texture2D" uid="uid://deju6wvcry2rb" path="res://sprites/background/Layer_0011_0.png" id="2_q3lui"]
+[ext_resource type="Texture2D" uid="uid://c8rw4bn3l43tv" path="res://sprites/background/Layer_0010_1.png" id="3_cb3on"]
+[ext_resource type="Texture2D" uid="uid://ro2d4k1rp4up" path="res://sprites/background/Layer_0009_2.png" id="4_jslh1"]
+[ext_resource type="Texture2D" uid="uid://bighekdveb68w" path="res://sprites/background/Layer_0008_3.png" id="5_n6jbl"]
+[ext_resource type="Texture2D" uid="uid://ctpficcj2hxux" path="res://sprites/background/Layer_0007_Lights.png" id="6_rqyhg"]
+[ext_resource type="Texture2D" uid="uid://bmgy6rggv0fpj" path="res://sprites/background/Layer_0006_4.png" id="7_l3hlr"]
+[ext_resource type="Texture2D" uid="uid://bsd4384huw33u" path="res://sprites/background/Layer_0005_5.png" id="8_jin8s"]
+[ext_resource type="Texture2D" uid="uid://c1gdshhau8yw3" path="res://sprites/background/Layer_0004_Lights.png" id="9_irvs1"]
+[ext_resource type="Texture2D" uid="uid://dvyu55kafjqr5" path="res://sprites/background/Layer_0003_6.png" id="10_wxi7y"]
+[ext_resource type="Texture2D" uid="uid://bbbx2470typg5" path="res://sprites/background/Layer_0002_7.png" id="11_n28k4"]
+[ext_resource type="FontFile" uid="uid://bkfrphl4vwqil" path="res://fonts/GothicPixels.ttf" id="12_jhifb"]
+[ext_resource type="FontFile" uid="uid://cj7npol18ibqs" path="res://fonts/nokiafc22.ttf" id="13_5tuis"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_83ncp"]
+
+[node name="GameOverScreen" type="Node2D"]
+script = ExtResource("1_x8ovf")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+zoom = Vector2(4, 4)
+
+[node name="Parallax2D" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.1, 1)
+scroll_offset = Vector2(0, -150)
+repeat_size = Vector2(696, 0)
+repeat_times = 8
+
+[node name="Layer00110" type="Sprite2D" parent="Parallax2D"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("2_q3lui")
+
+[node name="Parallax2D2" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.2, 1)
+scroll_offset = Vector2(0, -150)
+repeat_size = Vector2(696, 0)
+repeat_times = 8
+
+[node name="Layer00110" type="Sprite2D" parent="Parallax2D2"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("3_cb3on")
+
+[node name="Parallax2D3" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.3, 1)
+scroll_offset = Vector2(0, -150)
+repeat_size = Vector2(696, 0)
+repeat_times = 8
+
+[node name="Layer00110" type="Sprite2D" parent="Parallax2D3"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_jslh1")
+
+[node name="Parallax2D4" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.4, 1)
+scroll_offset = Vector2(0, -150)
+repeat_size = Vector2(696, 0)
+repeat_times = 8
+
+[node name="Layer00110" type="Sprite2D" parent="Parallax2D4"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("5_n6jbl")
+
+[node name="Parallax2D5" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.45, 1)
+scroll_offset = Vector2(0, -150)
+repeat_size = Vector2(696, 0)
+repeat_times = 8
+
+[node name="Layer00110" type="Sprite2D" parent="Parallax2D5"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("6_rqyhg")
+
+[node name="Parallax2D6" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.5, 1)
+scroll_offset = Vector2(0, -150)
+repeat_size = Vector2(696, 0)
+repeat_times = 8
+
+[node name="Layer00110" type="Sprite2D" parent="Parallax2D6"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("7_l3hlr")
+
+[node name="Parallax2D7" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.6, 1)
+scroll_offset = Vector2(0, -150)
+repeat_size = Vector2(696, 0)
+repeat_times = 8
+
+[node name="Layer00110" type="Sprite2D" parent="Parallax2D7"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("8_jin8s")
+
+[node name="Parallax2D8" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.65, 1)
+scroll_offset = Vector2(0, -150)
+repeat_size = Vector2(696, 0)
+repeat_times = 8
+
+[node name="Layer00110" type="Sprite2D" parent="Parallax2D8"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("9_irvs1")
+
+[node name="Parallax2D9" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.7, 1)
+scroll_offset = Vector2(0, -150)
+repeat_size = Vector2(696, 0)
+repeat_times = 8
+
+[node name="Layer00110" type="Sprite2D" parent="Parallax2D9"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("10_wxi7y")
+
+[node name="Parallax2D10" type="Parallax2D" parent="."]
+scroll_scale = Vector2(0.8, 1)
+scroll_offset = Vector2(0, -150)
+repeat_size = Vector2(696, 0)
+repeat_times = 8
+
+[node name="Layer00110" type="Sprite2D" parent="Parallax2D10"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("11_n28k4")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.49019608)
+
+[node name="Label" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 186.0
+grow_horizontal = 2
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 4
+theme_override_constants/shadow_offset_y = 4
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("12_jhifb")
+theme_override_font_sizes/font_size = 128
+text = "Game Over"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label2" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 14
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_top = -11.5
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("13_5tuis")
+theme_override_font_sizes/font_size = 32
+text = "Thank you for playing!"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="Label3" type="Label" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -182.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 2
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("13_5tuis")
+theme_override_font_sizes/font_size = 16
+text = "WASD or Arrow Keys to move, X/Left Click to shoot/swing, Z to Jump and [TAB] to open the sacrifices menu."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 3
+
+[node name="BackButton" type="Button" parent="CanvasLayer/Control"]
+layout_mode = 1
+offset_left = 20.0
+offset_top = 15.0
+offset_right = 134.0
+offset_bottom = 43.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+theme_override_colors/font_hover_color = Color(0.9490196, 0.9490196, 0.9490196, 0.43137255)
+theme_override_fonts/font = ExtResource("13_5tuis")
+theme_override_font_sizes/font_size = 16
+theme_override_styles/focus = SubResource("StyleBoxEmpty_83ncp")
+text = "<< Back"
+flat = true
+
+[connection signal="pressed" from="CanvasLayer/Control/BackButton" to="." method="_on_back_button_pressed"]

@@ -1,0 +1,63 @@
+[gd_scene load_steps=12 format=3 uid="uid://djbl70dah3dwa"]
+
+[ext_resource type="Script" uid="uid://c2sjm6r1snu4t" path="res://Portal.gd" id="1_1kva7"]
+[ext_resource type="Texture2D" uid="uid://dfwtlclljjfcw" path="res://sprites/background/portal1_frame_1.png" id="2_j52aw"]
+[ext_resource type="Texture2D" uid="uid://ch83x12cjr3kv" path="res://sprites/background/portal1_frame_2.png" id="3_p6xi3"]
+[ext_resource type="Texture2D" uid="uid://dsul17ovjkrc8" path="res://sprites/background/portal1_frame_3.png" id="4_ncfro"]
+[ext_resource type="Texture2D" uid="uid://dx6ma7cq8hf7k" path="res://sprites/background/portal1_frame_4.png" id="5_nmu01"]
+[ext_resource type="Texture2D" uid="uid://r26xnbhr24lk" path="res://sprites/background/portal1_frame_5.png" id="6_40s7u"]
+[ext_resource type="Texture2D" uid="uid://cus27xqo188jj" path="res://sprites/background/portal1_frame_6.png" id="7_slcg1"]
+[ext_resource type="Texture2D" uid="uid://hkmiibh0in5m" path="res://sprites/background/portal1_frame_7.png" id="8_kyng1"]
+[ext_resource type="FontFile" uid="uid://bkfrphl4vwqil" path="res://fonts/GothicPixels.ttf" id="9_j52aw"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g8lpj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_j52aw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_p6xi3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_ncfro")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_nmu01")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_40s7u")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_slcg1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_kyng1")
+}],
+"loop": true,
+"name": &"portal",
+"speed": 8.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p6xi3"]
+size = Vector2(131.375, 60)
+
+[node name="Area2D" type="Area2D"]
+script = ExtResource("1_1kva7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_g8lpj")
+animation = &"portal"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_p6xi3")
+
+[node name="Label" type="Label" parent="."]
+visible = false
+show_behind_parent = true
+offset_left = -65.0
+offset_top = -47.0
+offset_right = 72.0
+offset_bottom = -24.0
+theme_override_fonts/font = ExtResource("9_j52aw")
+text = "Press E to enter"

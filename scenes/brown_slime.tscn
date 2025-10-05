@@ -11,8 +11,8 @@ shader = ExtResource("2_ioxvn")
 shader_parameter/flash_color = Color(1, 0.98039216, 1, 1)
 shader_parameter/flashing = false
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qfnet"]
-size = Vector2(28, 18)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ioxvn"]
+size = Vector2(14, 9)
 
 [sub_resource type="Animation" id="Animation_lakw3"]
 length = 0.001
@@ -72,7 +72,7 @@ hframes = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 2.5)
-shape = SubResource("RectangleShape2D_qfnet")
+shape = SubResource("RectangleShape2D_ioxvn")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
