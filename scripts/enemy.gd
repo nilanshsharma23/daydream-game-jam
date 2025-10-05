@@ -13,12 +13,13 @@ const HURT = preload("uid://dej72cqyem30i")
 const DUST_EXPLOSION_PARTICLES = preload("uid://bwk48ote1ro3v")
 
 @export var health: int = 100
+@export var seconds: float = 2
 
 @onready var player_ray: RayCast2D = $PlayerRay
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var hit_timer: Timer = $HitTimer
+@onready var patrol_timer: Timer = $PatrolTimer
 
-var seconds: float = 2
 
 func _physics_process(delta: float) -> void:
 	velocity.y += GRAVITY * delta
@@ -31,6 +32,7 @@ func _physics_process(delta: float) -> void:
 	move_and_slide()
 
 	sprite.flip_h = velocity.x < 0
+	patrol_timer.wait_time = seconds
 
 func _on_patrol_timer_timeout() -> void:
 	direction *= -1
@@ -47,7 +49,7 @@ func _on_hurtbox_hit(area: Area2D) -> void:
 		var particles: GPUParticles2D = DUST_EXPLOSION_PARTICLES.instantiate()
 		particles.emitting = true
 		particles.global_position = area.global_position
-		add_child(particles)
+		get_parent().add_child(particles)
 		particles.finished.connect(particles.queue_free)
 		if area.get_parent() is Projectile:
 			area.get_parent().queue_free()

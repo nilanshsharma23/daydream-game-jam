@@ -4,6 +4,16 @@ extends Node2D
 
 const BUTTON_CLICK = preload("uid://cyn6ax5cersg1")
 
+@onready var label: Label = $CanvasLayer/Control/Label
+@onready var buttons: Node2D = $CanvasLayer/Control/Buttons
+
+func _ready() -> void:
+	var tween: Tween = create_tween()
+	tween.tween_property(label, "position", Vector2.ZERO, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+	
+	for i in buttons.get_children():
+		tween.tween_property(i, "position", Vector2(100, i.position.y), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+
 func _physics_process(_delta: float) -> void:
 	camera_2d.position.x += 1
 
