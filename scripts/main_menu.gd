@@ -3,6 +3,7 @@ extends Node2D
 @onready var camera_2d: Camera2D = $Camera2D
 
 const BUTTON_CLICK = preload("uid://cyn6ax5cersg1")
+const MAIN_MENU = preload("uid://1fy58hpxxh48")
 
 @onready var label: Label = $CanvasLayer/Control/Label
 @onready var buttons: Node2D = $CanvasLayer/Control/Buttons
@@ -10,6 +11,7 @@ const BUTTON_CLICK = preload("uid://cyn6ax5cersg1")
 func _ready() -> void:
 	var tween: Tween = create_tween()
 	tween.tween_property(label, "position", Vector2.ZERO, 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
+	SoundManager.play_music(MAIN_MENU)
 	
 	for i in buttons.get_children():
 		tween.tween_property(i, "position", Vector2(100, i.position.y), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_SINE)
