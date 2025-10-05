@@ -1,48 +1,58 @@
-[gd_scene load_steps=45 format=3 uid="uid://csw5uytlw14x4"]
+[gd_scene load_steps=40 format=3 uid="uid://csw5uytlw14x4"]
 
 [ext_resource type="Script" uid="uid://bwh81tov15l3c" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://bmafa12hq3xth" path="res://scripts/sacrifice.gd" id="2_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://06gnfs2bfc5l" path="res://sprites/body.png" id="3_dqkch"]
+[ext_resource type="Script" uid="uid://lnooj38dlgwd" path="res://scripts/melee_weapon_anchor.gd" id="3_fulsm"]
 [ext_resource type="Texture2D" uid="uid://cxx6sbxm77jux" path="res://sprites/head.png" id="3_qhqgy"]
+[ext_resource type="Texture2D" uid="uid://dopy3tk3ni7r1" path="res://sprites/weapons/lightsaber.png" id="4_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://bw51kkg7tu88u" path="res://sprites/leg.png" id="4_dqkch"]
 [ext_resource type="Shader" uid="uid://b51dfru3jr2b1" path="res://flash.gdshader" id="4_smehm"]
 [ext_resource type="Texture2D" uid="uid://0dipxb055l2g" path="res://sprites/ui/fill.png" id="5_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://dxfthdugy0vk7" path="res://sprites/ui/frame.png" id="6_fjrip"]
-[ext_resource type="Texture2D" uid="uid://dfm3i5ggf2hb7" path="res://sprites/slash.png" id="7_fjrip"]
 [ext_resource type="FontFile" uid="uid://cj7npol18ibqs" path="res://fonts/nokiafc22.ttf" id="8_y4r1p"]
 [ext_resource type="Texture2D" uid="uid://ceihtajtylg5q" path="res://sprites/ui/button_normal.png" id="9_3v2ag"]
 [ext_resource type="Script" uid="uid://dsvpa07w6sl22" path="res://scripts/hurtbox.gd" id="9_ur7pv"]
 [ext_resource type="Texture2D" uid="uid://ccv3rmex30f68" path="res://sprites/ui/button_hover.png" id="10_jej6c"]
 [ext_resource type="Texture2D" uid="uid://c1vha442bwyo5" path="res://sprites/ui/sacrifices_panel.png" id="11_f1ej7"]
 [ext_resource type="Shader" uid="uid://du2e5fg6wei1m" path="res://vignette.tres" id="11_fulsm"]
-[ext_resource type="Texture2D" uid="uid://b8sw1g7ja1qqu" path="res://sprites/ui/checkbox_checked.png" id="12_a8ls1"]
-[ext_resource type="Script" uid="uid://b1g43gclbljsv" path="res://scripts/hitbox.gd" id="12_jej6c"]
 [ext_resource type="Texture2D" uid="uid://bsybvefu1phog" path="res://sprites/ui/panel2.png" id="13_60mlk"]
-[ext_resource type="Texture2D" uid="uid://b0uhmsl1d0u2h" path="res://sprites/ui/checkbox_unchecked.png" id="13_qfm1y"]
 [ext_resource type="Script" uid="uid://cj3nue1nbstmk" path="res://scripts/info_panel.gd" id="14_i4ail"]
-[ext_resource type="Texture2D" uid="uid://dtgs2dxqo6d85" path="res://sprites/ui/info.png" id="14_qfm1y"]
 
 [sub_resource type="Resource" id="Resource_60mlk"]
 script = ExtResource("2_4r5pv")
+name = "Head"
 jump_boost = 100
 sacrifice_description = "Temporary blindness but makes you somewhat lighter"
 metadata/_custom_type_script = "uid://bmafa12hq3xth"
 
 [sub_resource type="Resource" id="Resource_4r5pv"]
 script = ExtResource("2_4r5pv")
+name = "Upper Body"
 health_decrease = 30
 speed_boost = 100
 sacrifice_description = "Lose 30 health from max health, slight speed boost"
 metadata/_custom_type_script = "uid://bmafa12hq3xth"
 
-[sub_resource type="Resource" id="Resource_i4ail"]
+[sub_resource type="Resource" id="Resource_fulsm"]
 script = ExtResource("2_4r5pv")
-health_decrease = -20
-sacrifice_description = "Slight speed decrease, but health + 20"
+name = "Lower Body"
+health_decrease = 30
+speed_boost = 100
+sacrifice_description = "Lose 30 health from max health, slight speed boost"
 metadata/_custom_type_script = "uid://bmafa12hq3xth"
 
 [sub_resource type="Resource" id="Resource_a38lo"]
 script = ExtResource("2_4r5pv")
+name = "Front Leg"
+health_decrease = -10
+jump_boost = 50
+sacrifice_description = "Lose 10 from max health, but slight jump boost"
+metadata/_custom_type_script = "uid://bmafa12hq3xth"
+
+[sub_resource type="Resource" id="Resource_i4ail"]
+script = ExtResource("2_4r5pv")
+name = "Back Leg"
 health_decrease = -10
 jump_boost = 50
 sacrifice_description = "Lose 10 from max health, but slight jump boost"
@@ -118,42 +128,6 @@ tracks/4/keys = {
 "update": 0,
 "values": [Vector2(0, 0)]
 }
-tracks/5/type = "value"
-tracks/5/imported = false
-tracks/5/enabled = true
-tracks/5/path = NodePath("SlashSprite:texture:region")
-tracks/5/interp = 1
-tracks/5/loop_wrap = true
-tracks/5/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Rect2(0, 0, 32, 32)]
-}
-tracks/6/type = "value"
-tracks/6/imported = false
-tracks/6/enabled = true
-tracks/6/path = NodePath("SlashSprite:visible")
-tracks/6/interp = 1
-tracks/6/loop_wrap = true
-tracks/6/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [true]
-}
-tracks/7/type = "value"
-tracks/7/imported = false
-tracks/7/enabled = true
-tracks/7/path = NodePath("SlashSprite/Hitbox:rotation")
-tracks/7/interp = 1
-tracks/7/loop_wrap = true
-tracks/7/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [0.0]
-}
 
 [sub_resource type="Animation" id="Animation_tuyoq"]
 resource_name = "idle"
@@ -212,50 +186,14 @@ length = 0.26
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("SlashSprite:texture:region")
+tracks/0/path = NodePath("Limbs/ArmFront:rotation")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.125, 0.25),
-"transitions": PackedFloat32Array(0, 0, 0),
-"update": 0,
-"values": [Rect2(0, 0, 32, 32), Rect2(32, 0, 32, 32), Rect2(64, 0, 32, 32)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("SlashSprite:visible")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"times": PackedFloat32Array(0, 0.26),
-"transitions": PackedFloat32Array(1, 1),
-"update": 1,
-"values": [true, false]
-}
-tracks/2/type = "value"
-tracks/2/imported = false
-tracks/2/enabled = true
-tracks/2/path = NodePath("Limbs/ArmFront:rotation")
-tracks/2/interp = 1
-tracks/2/loop_wrap = true
-tracks/2/keys = {
 "times": PackedFloat32Array(0, 0.26),
 "transitions": PackedFloat32Array(-2, -2),
 "update": 0,
 "values": [-1.5707964, 1.5707964]
-}
-tracks/3/type = "value"
-tracks/3/imported = false
-tracks/3/enabled = true
-tracks/3/path = NodePath("SlashSprite/Hitbox:rotation")
-tracks/3/interp = 1
-tracks/3/loop_wrap = true
-tracks/3/keys = {
-"times": PackedFloat32Array(0, 0.24779166),
-"transitions": PackedFloat32Array(-2, -2),
-"update": 0,
-"values": [0.0, 3.1415927]
 }
 
 [sub_resource type="Animation" id="Animation_fjrip"]
@@ -404,16 +342,7 @@ shader_parameter/outerRadius = 0.978000046455
 shader_parameter/innerRadius = 0.0
 shader_parameter/alpha = 0.0
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_a8ls1"]
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_60mlk"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
-atlas = ExtResource("7_fjrip")
-region = Rect2(0, 0, 32, 32)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_jej6c"]
-size = Vector2(12, 7)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4r1p"]
 size = Vector2(10, 21)
@@ -470,19 +399,20 @@ _data = {
 &"show": SubResource("Animation_i4ail")
 }
 
-[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("body_parts", "body_part_dictionary")]
+[node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("body_parts", "sacrificable_body_parts")]
 script = ExtResource("1_g2els")
 body_parts = [NodePath("Body/Head"), NodePath("Body/Ball1"), NodePath("Body/Ball2")]
-body_part_dictionary = {
-NodePath("Body/Head"): NodePath("CanvasLayer/SacrificesPanel/TextureRect/GridContainer/HeadBox/CheckBox"),
-NodePath("Body/Ball1"): NodePath("CanvasLayer/SacrificesPanel/TextureRect/GridContainer/UpperBody/CheckBox"),
-NodePath("Body/Ball2"): NodePath("CanvasLayer/SacrificesPanel/TextureRect/GridContainer/LowerBody/CheckBox"),
-NodePath("Limbs/LegFront"): NodePath("CanvasLayer/SacrificesPanel/TextureRect/GridContainer/FrontLeg/CheckBox"),
-NodePath("Limbs/LegBack"): NodePath("CanvasLayer/SacrificesPanel/TextureRect/GridContainer/BackLeg/CheckBox"),
-NodePath("Limbs/ArmFront"): NodePath("CanvasLayer/SacrificesPanel/TextureRect/GridContainer/FrontArm/CheckBox"),
-NodePath("Limbs/ArmBack"): NodePath("CanvasLayer/SacrificesPanel/TextureRect/GridContainer/BackArm/CheckBox")
-}
-sacrifices = [SubResource("Resource_60mlk"), SubResource("Resource_4r5pv"), SubResource("Resource_4r5pv"), SubResource("Resource_i4ail"), SubResource("Resource_i4ail"), SubResource("Resource_a38lo"), SubResource("Resource_a38lo")]
+sacrificable_body_parts = [NodePath("Body/Head"), NodePath("Body/Ball1"), NodePath("Body/Ball2"), NodePath("Limbs/LegFront"), NodePath("Limbs/LegBack")]
+sacrifices = [SubResource("Resource_60mlk"), SubResource("Resource_4r5pv"), SubResource("Resource_fulsm"), SubResource("Resource_a38lo"), SubResource("Resource_i4ail")]
+
+[node name="MeleeWeaponAnchor" type="Node2D" parent="."]
+script = ExtResource("3_fulsm")
+weapon_offset = Vector2(0, 2)
+swing_speed = 5.0
+
+[node name="MeleeWeaponSprite" type="Sprite2D" parent="MeleeWeaponAnchor"]
+position = Vector2(8, 0)
+texture = ExtResource("4_4r5pv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 6)
@@ -563,6 +493,7 @@ grow_vertical = 2
 mouse_filter = 2
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+z_index = 2
 layout_mode = 1
 anchors_preset = 9
 anchor_bottom = 1.0
@@ -613,6 +544,7 @@ theme_override_font_sizes/font_size = 24
 text = "100/100"
 
 [node name="SacrificesButton" type="TextureButton" parent="CanvasLayer/Control"]
+z_index = 2
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -688,7 +620,7 @@ text = "Sacrifices"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GridContainer" type="VBoxContainer" parent="CanvasLayer/SacrificesPanel/TextureRect"]
+[node name="SacrificeCheckboxContainer" type="VBoxContainer" parent="CanvasLayer/SacrificesPanel/TextureRect"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -700,167 +632,6 @@ offset_bottom = -29.684998
 grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
-
-[node name="HeadBox" type="HBoxContainer" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer/HeadBox"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("8_y4r1p")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_a8ls1")
-theme_override_icons/checked = ExtResource("12_a8ls1")
-theme_override_icons/unchecked = ExtResource("13_qfm1y")
-text = "Head"
-flat = true
-
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer/HeadBox"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture_normal = ExtResource("14_qfm1y")
-stretch_mode = 0
-
-[node name="UpperBody" type="HBoxContainer" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer/UpperBody"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("8_y4r1p")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_a8ls1")
-theme_override_icons/checked = ExtResource("12_a8ls1")
-theme_override_icons/unchecked = ExtResource("13_qfm1y")
-text = "Upper Body"
-flat = true
-
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer/UpperBody"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture_normal = ExtResource("14_qfm1y")
-stretch_mode = 0
-
-[node name="LowerBody" type="HBoxContainer" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer/LowerBody"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("8_y4r1p")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_a8ls1")
-theme_override_icons/checked = ExtResource("12_a8ls1")
-theme_override_icons/unchecked = ExtResource("13_qfm1y")
-text = "Lower Body"
-flat = true
-
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer/LowerBody"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture_normal = ExtResource("14_qfm1y")
-stretch_mode = 0
-
-[node name="FrontArm" type="HBoxContainer" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer/FrontArm"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("8_y4r1p")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_a8ls1")
-theme_override_icons/checked = ExtResource("12_a8ls1")
-theme_override_icons/unchecked = ExtResource("13_qfm1y")
-text = "Front Arm"
-flat = true
-
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer/FrontArm"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture_normal = ExtResource("14_qfm1y")
-stretch_mode = 0
-
-[node name="BackArm" type="HBoxContainer" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer/BackArm"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("8_y4r1p")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_a8ls1")
-theme_override_icons/checked = ExtResource("12_a8ls1")
-theme_override_icons/unchecked = ExtResource("13_qfm1y")
-text = "Back Arm"
-flat = true
-
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer/BackArm"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture_normal = ExtResource("14_qfm1y")
-stretch_mode = 0
-
-[node name="FrontLeg" type="HBoxContainer" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer/FrontLeg"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("8_y4r1p")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_a8ls1")
-theme_override_icons/checked = ExtResource("12_a8ls1")
-theme_override_icons/unchecked = ExtResource("13_qfm1y")
-text = "Front Leg"
-flat = true
-
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer/FrontLeg"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture_normal = ExtResource("14_qfm1y")
-stretch_mode = 0
-
-[node name="BackLeg" type="HBoxContainer" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer"]
-layout_mode = 2
-alignment = 1
-
-[node name="CheckBox" type="CheckBox" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer/BackLeg"]
-layout_mode = 2
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
-theme_override_constants/outline_size = 4
-theme_override_fonts/font = ExtResource("8_y4r1p")
-theme_override_font_sizes/font_size = 24
-theme_override_styles/focus = SubResource("StyleBoxEmpty_a8ls1")
-theme_override_icons/checked = ExtResource("12_a8ls1")
-theme_override_icons/unchecked = ExtResource("13_qfm1y")
-text = "Back Leg"
-flat = true
-
-[node name="TextureButton" type="TextureButton" parent="CanvasLayer/SacrificesPanel/TextureRect/GridContainer/BackLeg"]
-custom_minimum_size = Vector2(48, 48)
-layout_mode = 2
-texture_normal = ExtResource("14_qfm1y")
-stretch_mode = 0
 
 [node name="InfoControl" type="Control" parent="CanvasLayer"]
 layout_mode = 3
@@ -927,21 +698,6 @@ text = "Temporary blindness but makes you somewhat lighter"
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
-
-[node name="SlashSprite" type="Sprite2D" parent="."]
-z_index = 2
-position = Vector2(0, 8)
-texture = SubResource("AtlasTexture_smehm")
-
-[node name="Hitbox" type="Area2D" parent="SlashSprite"]
-collision_layer = 4
-collision_mask = 4
-script = ExtResource("12_jej6c")
-metadata/_custom_type_script = "uid://b1g43gclbljsv"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="SlashSprite/Hitbox"]
-position = Vector2(4, -8.5)
-shape = SubResource("RectangleShape2D_jej6c")
 
 [node name="Hurtbox" type="Area2D" parent="."]
 collision_layer = 4

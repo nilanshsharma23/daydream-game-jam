@@ -1,4 +1,5 @@
 extends TextureRect
+class_name InfoPanel
 
 @onready var label: Label = $Label
 
