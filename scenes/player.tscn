@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://csw5uytlw14x4"]
+[gd_scene load_steps=53 format=3 uid="uid://csw5uytlw14x4"]
 
 [ext_resource type="Script" uid="uid://bwh81tov15l3c" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://bmafa12hq3xth" path="res://scripts/sacrifice.gd" id="2_4r5pv"]
@@ -17,12 +17,16 @@
 [ext_resource type="Texture2D" uid="uid://cesnnupc1hyg" path="res://sprites/weapons/energy_blaster.png" id="6_l71n6"]
 [ext_resource type="Texture2D" uid="uid://brfripy2aib5i" path="res://sprites/weapons/gun.png" id="7_4ni07"]
 [ext_resource type="FontFile" uid="uid://cj7npol18ibqs" path="res://fonts/nokiafc22.ttf" id="8_y4r1p"]
+[ext_resource type="Texture2D" uid="uid://ceihtajtylg5q" path="res://sprites/ui/button_normal.png" id="9_3v2ag"]
 [ext_resource type="Script" uid="uid://dsvpa07w6sl22" path="res://scripts/hurtbox.gd" id="9_ur7pv"]
+[ext_resource type="Texture2D" uid="uid://ccv3rmex30f68" path="res://sprites/ui/button_hover.png" id="10_jej6c"]
 [ext_resource type="Texture2D" uid="uid://c1vha442bwyo5" path="res://sprites/ui/sacrifices_panel.png" id="11_f1ej7"]
 [ext_resource type="Shader" uid="uid://du2e5fg6wei1m" path="res://vignette.tres" id="11_fulsm"]
 [ext_resource type="Texture2D" uid="uid://bsybvefu1phog" path="res://sprites/ui/panel2.png" id="13_60mlk"]
 [ext_resource type="Script" uid="uid://cj3nue1nbstmk" path="res://scripts/info_panel.gd" id="14_i4ail"]
 [ext_resource type="Gradient" uid="uid://di617fwnhavoa" path="res://gradient.tres" id="20_60mlk"]
+[ext_resource type="Shader" uid="uid://542jp6oxli4y" path="res://chromaticchaos.gdshader" id="21_31cv2"]
+[ext_resource type="Script" uid="uid://vf8yw7oquyxs" path="res://scripts/pause_menu.gd" id="24_ujl30"]
 
 [sub_resource type="Resource" id="Resource_60mlk"]
 script = ExtResource("2_4r5pv")
@@ -357,7 +361,21 @@ shader_parameter/outerRadius = 0.978000046455
 shader_parameter/innerRadius = 0.0
 shader_parameter/alpha = 0.0
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_pf23h"]
+shader = ExtResource("21_31cv2")
+shader_parameter/mask_type = 1
+shader_parameter/curve = 0.0
+shader_parameter/sharpness = 0.7490000118275
+shader_parameter/color_offset = -0.04299997829250002
+shader_parameter/mask_brightness = 0.1200000057
+shader_parameter/scanline_brightness = 1.0
+shader_parameter/min_scanline_thickness = 0.86200002907
+shader_parameter/aspect = 0.75
+shader_parameter/wobble_strength = 0.0170000008075
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_60mlk"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_31cv2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y4r1p"]
 size = Vector2(10, 21)
@@ -589,6 +607,31 @@ grow_vertical = 2
 mouse_filter = 2
 color = Color(0, 0, 0, 1)
 
+[node name="PauseButton" type="TextureButton" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -56.0
+offset_top = 16.0
+offset_right = -16.0
+offset_bottom = 56.0
+grow_horizontal = 0
+texture_normal = ExtResource("9_3v2ag")
+texture_hover = ExtResource("10_jej6c")
+stretch_mode = 0
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/Control"]
+visible = false
+material = SubResource("ShaderMaterial_pf23h")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(1, 1, 1, 0.3647059)
+
 [node name="SacrificesPanel" type="Control" parent="CanvasLayer"]
 visible = false
 layout_mode = 3
@@ -718,6 +761,110 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
+[node name="PausePanel" type="Control" parent="CanvasLayer"]
+process_mode = 3
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer/PausePanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 0.4862745)
+
+[node name="PauseMenu" type="TextureRect" parent="CanvasLayer/PausePanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -288.0
+offset_top = -884.0
+offset_right = 288.0
+offset_bottom = -360.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("11_f1ej7")
+script = ExtResource("24_ujl30")
+
+[node name="Title" type="Label" parent="CanvasLayer/PausePanel/PauseMenu"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -119.0
+offset_top = 22.0
+offset_right = 121.0
+offset_bottom = 78.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/shadow_offset_x = 1
+theme_override_constants/shadow_offset_y = 2
+theme_override_constants/outline_size = 4
+theme_override_constants/shadow_outline_size = 0
+theme_override_fonts/font = ExtResource("8_y4r1p")
+theme_override_font_sizes/font_size = 32
+text = "Paused"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PausePanel/PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 92.0
+offset_bottom = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="ResumeButton" type="Button" parent="CanvasLayer/PausePanel/PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.9490196, 0, 0.9490196, 1)
+theme_override_fonts/font = ExtResource("8_y4r1p")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_31cv2")
+text = "Resume"
+flat = true
+
+[node name="MenuButton" type="Button" parent="CanvasLayer/PausePanel/PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.9490196, 0, 0.9490196, 1)
+theme_override_fonts/font = ExtResource("8_y4r1p")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_31cv2")
+text = "Menu
+"
+flat = true
+
+[node name="QuitButton" type="Button" parent="CanvasLayer/PausePanel/PauseMenu/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_focus_color = Color(1, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0.9490196, 0, 0.9490196, 1)
+theme_override_fonts/font = ExtResource("8_y4r1p")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxEmpty_31cv2")
+text = "Quit"
+flat = true
+
 [node name="Hurtbox" type="Area2D" parent="."]
 script = ExtResource("9_ur7pv")
 metadata/_custom_type_script = "uid://dsvpa07w6sl22"
@@ -737,5 +884,9 @@ texture_scale = 2.5
 
 [connection signal="body_entered" from="GroundDetector" to="." method="_on_ground_detector_body_entered"]
 [connection signal="body_exited" from="GroundDetector" to="." method="_on_ground_detector_body_exited"]
+[connection signal="pressed" from="CanvasLayer/Control/PauseButton" to="." method="_on_pause_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/InfoControl/InfoPanel/CloseButton" to="CanvasLayer/InfoControl/InfoPanel" method="_on_close_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PausePanel/PauseMenu/VBoxContainer/ResumeButton" to="CanvasLayer/PausePanel/PauseMenu" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PausePanel/PauseMenu/VBoxContainer/MenuButton" to="CanvasLayer/PausePanel/PauseMenu" method="_on_menu_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/PausePanel/PauseMenu/VBoxContainer/QuitButton" to="CanvasLayer/PausePanel/PauseMenu" method="_on_quit_button_pressed"]
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]

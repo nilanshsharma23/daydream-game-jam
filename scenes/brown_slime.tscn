@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://6poraey3f1h5"]
+[gd_scene load_steps=14 format=3 uid="uid://6poraey3f1h5"]
 
 [ext_resource type="Script" uid="uid://cdht8a6pn4flu" path="res://scripts/enemy.gd" id="1_4n1kk"]
 [ext_resource type="Shader" uid="uid://b51dfru3jr2b1" path="res://flash.gdshader" id="2_ioxvn"]
@@ -59,6 +59,9 @@ size = Vector2(14, 9)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x8wqk"]
 size = Vector2(14, 9)
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_ioxvn"]
+radius = 36.0
+
 [node name="BrownSlime" type="CharacterBody2D"]
 script = ExtResource("1_4n1kk")
 
@@ -101,6 +104,14 @@ metadata/_custom_type_script = "uid://b15hpxm0lirak"
 position = Vector2(0, 2.5)
 shape = SubResource("RectangleShape2D_x8wqk")
 
+[node name="DetectionArea" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea"]
+shape = SubResource("CircleShape2D_ioxvn")
+
+[node name="PlayerRay" type="RayCast2D" parent="."]
+
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
 [connection signal="timeout" from="PatrolTimer" to="." method="_on_patrol_timer_timeout"]
 [connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]

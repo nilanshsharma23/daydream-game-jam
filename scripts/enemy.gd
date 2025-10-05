@@ -7,19 +7,27 @@ var direction: int = 1  # 1 = right, -1 = left
 var knockback: Vector2
 var knockback_tween: Tween
 
+var player_detected: bool
+
 const HURT = preload("uid://dej72cqyem30i")
 
 @export var health: int = 100
 
+@onready var player_ray: RayCast2D = $PlayerRay
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var hit_timer: Timer = $HitTimer
 
 func _physics_process(delta: float) -> void:
 	velocity.y += GRAVITY * delta
-	velocity.x = SPEED * direction + knockback.x
+	
+	if player_detected:
+		velocity.x = SPEED * global_position.direction_to(PlayerManager.player_position).x + knockback.x
+	else:
+		velocity.x = SPEED * direction + knockback.x
+	
 	move_and_slide()
 
-	sprite.flip_h = direction < 0
+	sprite.flip_h = velocity.x < 0
 
 func _on_patrol_timer_timeout() -> void:
 	direction *= -1
@@ -33,6 +41,7 @@ func _on_hurtbox_hit(area: Area2D) -> void:
 		HitStop.hit_stop(0, 0.25)
 		SoundManager.play_sound_with_random_pitch(HURT)
 		CameraShake.shake(1, 0.1)
+		print(area.get_parent().name)
 		if area.get_parent() is Projectile:
 			area.get_parent().queue_free()
 
@@ -49,3 +58,7 @@ func receive_knockback(damage_source_pos: Vector2, recieved_damage: int, knockba
 	
 	knockback_tween = get_tree().create_tween()
 	knockback_tween.parallel().tween_property(self, "knockback", Vector2(0, 0), stop_time)
+
+func _on_detection_area_body_entered(body: Node2D) -> void:
+	if body is Player:
+		player_detected = true

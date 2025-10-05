@@ -1,4 +1,5 @@
 extends CharacterBody2D
+class_name Player
 
 const GRAVITY: float = 400.0
 var walk_speed: float = 100.0
@@ -19,6 +20,9 @@ var checkboxes: Array[HBoxContainer]
 
 const SACRIFICE_CHECKBOX = preload("uid://dt4ne3fhxgr4g")
 
+var knockback: Vector2
+var knockback_tween: Tween
+
 @export var body_parts: Array[Sprite2D]
 @export var sacrificable_body_parts: Array[Sprite2D]
 @export var sacrifices: Array[Sacrifice]
@@ -33,6 +37,7 @@ const SACRIFICE_CHECKBOX = preload("uid://dt4ne3fhxgr4g")
 @onready var vignette_player: AnimationPlayer = $VignettePlayer
 @onready var sacrifice_checkbox_container: VBoxContainer = $CanvasLayer/SacrificesPanel/TextureRect/SacrificeCheckboxContainer
 @onready var projectile_weapon_anchor: ProjectileWeaponAnchor = $ProjectileWeaponAnchor
+@onready var pause_panel: Control = $CanvasLayer/PausePanel
 
 func _ready() -> void:
 	CameraShake.camera = $Camera2D
@@ -49,6 +54,8 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	melee_weapon_anchor.pos_to_point_at = (get_local_mouse_position() - melee_weapon_anchor.position).normalized()
+	
+	PlayerManager.player_position = global_position
 	
 	if velocity.x != 0.0 and is_touching_ground:
 		animation_player.play("sprint" if walk_speed >= 200.0 else "walk")
@@ -76,6 +83,7 @@ func _input(event: InputEvent) -> void:
 			sacrifices_panel.show()
 			tween.tween_property(sacrifices_panel, "position", Vector2(0, 0), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
 
+
 func _physics_process(delta: float) -> void:
 	# Gravity
 	velocity.y += delta * GRAVITY
@@ -100,6 +108,8 @@ func _physics_process(delta: float) -> void:
 	# 🪂 Dynamic jump height
 	if Input.is_action_just_released("jump") and velocity.y < 0.0:
 		velocity.y *= 0.5
+
+	velocity.x += knockback.x
 
 	move_and_slide()
 
@@ -132,7 +142,7 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 		if sacrifice.weapon_type == Sacrifice.WeaponType.MELEE:
 			melee_weapon_anchor.get_child(0).get_child(0).damage = sacrifice.damage
 			melee_weapon_anchor.get_child(0).texture = sacrifice.melee_weapon_sprite
-			melee_weapon_anchor.get_child(0).get_child(0).process_mode = Node.PROCESS_MODE_INHERIT
+			melee_weapon_anchor.get_child(0).get_child(0).monitoring = true
 			melee_weapon_anchor.show()
 		
 		if sacrifice.weapon_type == Sacrifice.WeaponType.PROJECTILE:
@@ -151,7 +161,7 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 		
 		if sacrifice.weapon_type == Sacrifice.WeaponType.MELEE:
 			melee_weapon_anchor.hide()
-			melee_weapon_anchor.get_child(0).get_child(0).process_mode = Node.PROCESS_MODE_DISABLED
+			melee_weapon_anchor.get_child(0).get_child(0).monitoring = false
 		
 		if sacrifice.weapon_type == Sacrifice.WeaponType.PROJECTILE:
 			projectile_weapon_anchor.hide()
@@ -166,4 +176,26 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 
 func _on_hurtbox_hit(area: Area2D) -> void:
 	if area is EnemyHitbox:
-		print("here")
+		receive_knockback(area.global_position, area.damage, Vector2(25, 25))
+		HitStop.hit_stop(0, 0.25)
+		CameraShake.shake(1, 0.1)
+
+func _on_pause_button_pressed() -> void:
+	pause_panel.show()
+	var tween: Tween = get_tree().create_tween()
+	tween.tween_property(pause_panel.get_child(1), "position", Vector2(352, 98), 0.25).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	tween.tween_callback(pause_game)
+
+func pause_game() -> void:
+	get_tree().paused = true
+
+func receive_knockback(damage_source_pos: Vector2, recieved_damage: int, knockback_strength: Vector2 = Vector2(0, 0), stop_time: float = 0.25) -> void:
+	var knockback_direction: Vector2 = damage_source_pos.direction_to(global_position)
+	
+	knockback = knockback_strength * knockback_direction * recieved_damage
+	
+	if knockback_tween:
+		knockback_tween.kill()
+	
+	knockback_tween = get_tree().create_tween()
+	knockback_tween.parallel().tween_property(self, "knockback", Vector2(0, 0), stop_time)
