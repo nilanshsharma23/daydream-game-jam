@@ -1,4 +1,5 @@
 extends Area2D
+class_name RespawnArea
 
 @export var respawn_point: Node2D
 @onready var animation_player: AnimationPlayer = $AnimationPlayer

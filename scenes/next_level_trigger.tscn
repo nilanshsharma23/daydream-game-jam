@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkj731460wer6"]
+
+[ext_resource type="Script" uid="uid://cr867gnjdushk" path="res://scripts/next_level_trigger.gd" id="1_wlk2y"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ejswk"]
+size = Vector2(20, 500)
+
+[node name="NextLevelTrigger" type="Area2D"]
+script = ExtResource("1_wlk2y")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_ejswk")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

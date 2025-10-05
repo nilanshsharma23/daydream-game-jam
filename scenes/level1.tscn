@@ -1,11 +1,11 @@
-[gd_scene load_steps=18 format=4 uid="uid://bdhf8fjcqbpmk"]
+[gd_scene load_steps=11 format=4 uid="uid://bdhf8fjcqbpmk"]
 
 [ext_resource type="PackedScene" uid="uid://cvj17iwn3ftuh" path="res://scenes/parallax.tscn" id="1_ejswk"]
 [ext_resource type="PackedScene" uid="uid://csw5uytlw14x4" path="res://scenes/player.tscn" id="2_bbk5w"]
 [ext_resource type="Texture2D" uid="uid://bvsw20xiyyv1d" path="res://sprites/Dungeon Tile Set.png" id="3_conm7"]
-[ext_resource type="Script" uid="uid://xla6pp1v5pqq" path="res://scripts/respawn_area.gd" id="4_d3jkd"]
-[ext_resource type="Shader" uid="uid://dsckohe77mygc" path="res://scenes/transition.gdshader" id="5_u3awl"]
+[ext_resource type="PackedScene" uid="uid://bvlxrhpvkrkyj" path="res://scenes/respawn_area.tscn" id="4_6sh32"]
 [ext_resource type="Gradient" uid="uid://di617fwnhavoa" path="res://gradient.tres" id="6_2ku1j"]
+[ext_resource type="PackedScene" uid="uid://bkj731460wer6" path="res://scenes/next_level_trigger.tscn" id="7_ejswk"]
 [ext_resource type="Script" uid="uid://b5oke1bsdrk1d" path="res://scripts/random_light.gd" id="7_f31uk"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i7141"]
@@ -224,87 +224,6 @@ terrain_set_0/terrain_0/name = "Terrain 0"
 terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
 sources/0 = SubResource("TileSetAtlasSource_i7141")
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_4wyf3"]
-size = Vector2(2000, 20)
-
-[sub_resource type="Animation" id="Animation_4mrxx"]
-resource_name = "hide_and_show"
-length = 0.75
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control/ColorRect:material:shader_parameter/position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.75),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [1.0, -1.5]
-}
-
-[sub_resource type="Animation" id="Animation_7r4gi"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control/ColorRect:material:shader_parameter/position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [1.0]
-}
-
-[sub_resource type="Animation" id="Animation_i7141"]
-resource_name = "hide"
-length = 0.75
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control/ColorRect:material:shader_parameter/position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.75),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [1.0, -1.5]
-}
-
-[sub_resource type="Animation" id="Animation_w7kh3"]
-resource_name = "show"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("Control/ColorRect:material:shader_parameter/position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.75),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [-1.5, 1.0]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_w7kh3"]
-_data = {
-&"RESET": SubResource("Animation_7r4gi"),
-&"hide": SubResource("Animation_i7141"),
-&"hide_and_show": SubResource("Animation_4mrxx"),
-&"show": SubResource("Animation_w7kh3")
-}
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_e3hyu"]
-shader = ExtResource("5_u3awl")
-shader_parameter/in_color = Color(0, 0, 0, 1)
-shader_parameter/out_color = Color(0, 0, 0, 1)
-shader_parameter/in_out = 0.0
-shader_parameter/position = 1.0
-shader_parameter/size = Vector2(16, 16)
-
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_4mrxx"]
 gradient = ExtResource("6_2ku1j")
 fill = 1
@@ -324,41 +243,8 @@ tile_set = SubResource("TileSet_k0juu")
 [node name="CanvasModulate" type="CanvasModulate" parent="."]
 color = Color(0.21568628, 0.2, 0.39607844, 1)
 
-[node name="RespawnArea" type="Area2D" parent="." node_paths=PackedStringArray("respawn_point")]
+[node name="RespawnArea" parent="." instance=ExtResource("4_6sh32")]
 position = Vector2(2, 184)
-script = ExtResource("4_d3jkd")
-respawn_point = NodePath("../RespawnPoint")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnArea"]
-shape = SubResource("RectangleShape2D_4wyf3")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="RespawnArea"]
-root_node = NodePath("../CanvasLayer")
-libraries = {
-&"": SubResource("AnimationLibrary_w7kh3")
-}
-
-[node name="CanvasLayer" type="CanvasLayer" parent="RespawnArea"]
-
-[node name="Control" type="Control" parent="RespawnArea/CanvasLayer"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-
-[node name="ColorRect" type="ColorRect" parent="RespawnArea/CanvasLayer/Control"]
-material = SubResource("ShaderMaterial_e3hyu")
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-color = Color(0, 0, 0, 1)
 
 [node name="RandomLight" type="PointLight2D" parent="."]
 texture = SubResource("GradientTexture2D_4mrxx")
@@ -380,4 +266,5 @@ script = ExtResource("7_f31uk")
 [node name="RespawnPoint" type="Node2D" parent="."]
 position = Vector2(-168, 0)
 
-[connection signal="body_entered" from="RespawnArea" to="RespawnArea" method="_on_body_entered"]
+[node name="NextLevelTrigger" parent="." instance=ExtResource("7_ejswk")]
+position = Vector2(397, -37)
