@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://csw5uytlw14x4"]
+[gd_scene load_steps=51 format=3 uid="uid://csw5uytlw14x4"]
 
 [ext_resource type="Script" uid="uid://bwh81tov15l3c" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://bmafa12hq3xth" path="res://scripts/sacrifice.gd" id="2_4r5pv"]
@@ -24,7 +24,6 @@
 [ext_resource type="Shader" uid="uid://du2e5fg6wei1m" path="res://vignette.tres" id="11_fulsm"]
 [ext_resource type="Texture2D" uid="uid://bsybvefu1phog" path="res://sprites/ui/panel2.png" id="13_60mlk"]
 [ext_resource type="Script" uid="uid://cj3nue1nbstmk" path="res://scripts/info_panel.gd" id="14_i4ail"]
-[ext_resource type="Gradient" uid="uid://di617fwnhavoa" path="res://gradient.tres" id="20_60mlk"]
 [ext_resource type="Shader" uid="uid://542jp6oxli4y" path="res://chromaticchaos.gdshader" id="21_31cv2"]
 [ext_resource type="Script" uid="uid://vf8yw7oquyxs" path="res://scripts/pause_menu.gd" id="24_ujl30"]
 
@@ -78,10 +77,11 @@ metadata/_custom_type_script = "uid://bmafa12hq3xth"
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_60mlk"]
 size = Vector2(3, 17)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
-size = Vector2(14, 24)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_31cv2"]
+radius = 4.0
+height = 21.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ur7pv"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_31cv2"]
 shader = ExtResource("4_smehm")
 shader_parameter/flash_color = Color(1, 1, 1, 1)
 shader_parameter/flashing = false
@@ -432,11 +432,6 @@ _data = {
 &"show": SubResource("Animation_i4ail")
 }
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_60mlk"]
-gradient = ExtResource("20_60mlk")
-fill = 1
-fill_from = Vector2(0.5, 0.5)
-
 [node name="Player" type="CharacterBody2D" node_paths=PackedStringArray("body_parts", "sacrificable_body_parts")]
 script = ExtResource("1_g2els")
 body_parts = [NodePath("Body/Head"), NodePath("Body/Ball1"), NodePath("Body/Ball2")]
@@ -479,22 +474,25 @@ wait_time = 0.2
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 6)
-shape = SubResource("RectangleShape2D_dqkch")
+position = Vector2(0, 7.5)
+shape = SubResource("CapsuleShape2D_31cv2")
 
 [node name="Body" type="Node2D" parent="."]
 
 [node name="Head" type="Sprite2D" parent="Body"]
 z_index = 1
+material = SubResource("ShaderMaterial_31cv2")
 texture = ExtResource("3_qhqgy")
 
 [node name="Ball1" type="Sprite2D" parent="Body"]
 z_index = 1
+material = SubResource("ShaderMaterial_31cv2")
 position = Vector2(0, 8)
 texture = ExtResource("3_dqkch")
 
 [node name="Ball2" type="Sprite2D" parent="Body"]
 z_index = 1
+material = SubResource("ShaderMaterial_31cv2")
 position = Vector2(0, 13)
 texture = ExtResource("3_dqkch")
 
@@ -502,12 +500,13 @@ texture = ExtResource("3_dqkch")
 
 [node name="LegFront" type="Sprite2D" parent="Limbs"]
 z_index = 1
-material = SubResource("ShaderMaterial_ur7pv")
+material = SubResource("ShaderMaterial_31cv2")
 position = Vector2(0, 13)
 texture = ExtResource("4_dqkch")
 offset = Vector2(2, 2)
 
 [node name="LegBack" type="Sprite2D" parent="Limbs"]
+material = SubResource("ShaderMaterial_31cv2")
 position = Vector2(0, 13)
 rotation = 1.5707964
 texture = ExtResource("4_dqkch")
@@ -515,12 +514,14 @@ offset = Vector2(2, 2)
 
 [node name="ArmFront" type="Sprite2D" parent="Limbs"]
 z_index = 1
+material = SubResource("ShaderMaterial_31cv2")
 position = Vector2(0, 7)
 rotation = 1.5707964
 texture = ExtResource("4_dqkch")
 offset = Vector2(2, 2)
 
 [node name="ArmBack" type="Sprite2D" parent="Limbs"]
+material = SubResource("ShaderMaterial_31cv2")
 position = Vector2(0, 7)
 texture = ExtResource("4_dqkch")
 offset = Vector2(2, 2)
@@ -878,9 +879,9 @@ libraries = {
 &"": SubResource("AnimationLibrary_4ni07")
 }
 
-[node name="PointLight2D" type="PointLight2D" parent="."]
-texture = SubResource("GradientTexture2D_60mlk")
-texture_scale = 2.5
+[node name="HitTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
 
 [connection signal="body_entered" from="GroundDetector" to="." method="_on_ground_detector_body_entered"]
 [connection signal="body_exited" from="GroundDetector" to="." method="_on_ground_detector_body_exited"]
@@ -890,3 +891,4 @@ texture_scale = 2.5
 [connection signal="pressed" from="CanvasLayer/PausePanel/PauseMenu/VBoxContainer/MenuButton" to="CanvasLayer/PausePanel/PauseMenu" method="_on_menu_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/PausePanel/PauseMenu/VBoxContainer/QuitButton" to="CanvasLayer/PausePanel/PauseMenu" method="_on_quit_button_pressed"]
 [connection signal="hit" from="Hurtbox" to="." method="_on_hurtbox_hit"]
+[connection signal="timeout" from="HitTimer" to="." method="_on_hit_timer_timeout"]

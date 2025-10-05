@@ -108,7 +108,7 @@ func _physics_process(delta: float) -> void:
 	# 🪂 Dynamic jump height
 	if Input.is_action_just_released("jump") and velocity.y < 0.0:
 		velocity.y *= 0.5
-
+	
 	velocity.x += knockback.x
 
 	move_and_slide()
@@ -169,7 +169,7 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 		if index == 0:
 			vignette_player.play("hide")
 
-	var label = health_meter.get_node("Label") as Label
+	var label: Label = health_meter.get_node("Label")
 	label.text = "%s/%s" % [health, max_health]
 	health_meter.max_value = max_health
 	health_meter.value = health
@@ -179,6 +179,14 @@ func _on_hurtbox_hit(area: Area2D) -> void:
 		receive_knockback(area.global_position, area.damage, Vector2(25, 25))
 		HitStop.hit_stop(0, 0.25)
 		CameraShake.shake(1, 0.1)
+		health -= area.damage
+		health_meter.value = health
+		health_meter.get_node("Label").text = "%s/%s" % [health, max_health]
+		
+		for i in sacrificable_body_parts:
+			i.material.set_shader_parameter("flashing", true)
+		
+		$HitTimer.start()
 
 func _on_pause_button_pressed() -> void:
 	pause_panel.show()
@@ -199,3 +207,7 @@ func receive_knockback(damage_source_pos: Vector2, recieved_damage: int, knockba
 	
 	knockback_tween = get_tree().create_tween()
 	knockback_tween.parallel().tween_property(self, "knockback", Vector2(0, 0), stop_time)
+
+func _on_hit_timer_timeout() -> void:
+	for i in sacrificable_body_parts:
+		i.material.set_shader_parameter("flashing", false)

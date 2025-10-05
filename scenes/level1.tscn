@@ -1,0 +1,383 @@
+[gd_scene load_steps=18 format=4 uid="uid://bdhf8fjcqbpmk"]
+
+[ext_resource type="PackedScene" uid="uid://cvj17iwn3ftuh" path="res://scenes/parallax.tscn" id="1_ejswk"]
+[ext_resource type="PackedScene" uid="uid://csw5uytlw14x4" path="res://scenes/player.tscn" id="2_bbk5w"]
+[ext_resource type="Texture2D" uid="uid://bvsw20xiyyv1d" path="res://sprites/Dungeon Tile Set.png" id="3_conm7"]
+[ext_resource type="Script" uid="uid://xla6pp1v5pqq" path="res://scripts/respawn_area.gd" id="4_d3jkd"]
+[ext_resource type="Shader" uid="uid://dsckohe77mygc" path="res://scenes/transition.gdshader" id="5_u3awl"]
+[ext_resource type="Gradient" uid="uid://di617fwnhavoa" path="res://gradient.tres" id="6_2ku1j"]
+[ext_resource type="Script" uid="uid://b5oke1bsdrk1d" path="res://scripts/random_light.gd" id="7_f31uk"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_i7141"]
+texture = ExtResource("3_conm7")
+1:1/0 = 0
+1:1/0/terrain_set = 0
+1:1/0/terrain = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:1/0/terrains_peering_bit/right_side = 0
+1:1/0/terrains_peering_bit/bottom_right_corner = 0
+1:1/0/terrains_peering_bit/bottom_side = 0
+2:1/0 = 0
+2:1/0/terrain_set = 0
+2:1/0/terrain = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:1/0/terrains_peering_bit/right_side = 0
+2:1/0/terrains_peering_bit/bottom_right_corner = 0
+2:1/0/terrains_peering_bit/bottom_side = 0
+2:1/0/terrains_peering_bit/bottom_left_corner = 0
+2:1/0/terrains_peering_bit/left_side = 0
+3:1/0 = 0
+3:1/0/terrain_set = 0
+3:1/0/terrain = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:1/0/terrains_peering_bit/bottom_side = 0
+3:1/0/terrains_peering_bit/bottom_left_corner = 0
+3:1/0/terrains_peering_bit/left_side = 0
+5:1/0 = 0
+5:1/0/terrain_set = 0
+6:1/0 = 0
+6:1/0/terrain_set = 0
+8:1/0 = 0
+9:1/0 = 0
+10:1/0 = 0
+11:1/0 = 0
+12:1/0 = 0
+13:1/0 = 0
+1:2/0 = 0
+1:2/0/terrain_set = 0
+1:2/0/terrain = 0
+1:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:2/0/terrains_peering_bit/right_side = 0
+1:2/0/terrains_peering_bit/bottom_right_corner = 0
+1:2/0/terrains_peering_bit/bottom_side = 0
+1:2/0/terrains_peering_bit/top_side = 0
+1:2/0/terrains_peering_bit/top_right_corner = 0
+2:2/0 = 0
+2:2/0/terrain_set = 0
+2:2/0/terrain = 0
+2:2/0/terrains_peering_bit/right_side = 0
+2:2/0/terrains_peering_bit/bottom_right_corner = 0
+2:2/0/terrains_peering_bit/bottom_side = 0
+2:2/0/terrains_peering_bit/bottom_left_corner = 0
+2:2/0/terrains_peering_bit/left_side = 0
+2:2/0/terrains_peering_bit/top_left_corner = 0
+2:2/0/terrains_peering_bit/top_side = 0
+2:2/0/terrains_peering_bit/top_right_corner = 0
+3:2/0 = 0
+3:2/0/terrain_set = 0
+3:2/0/terrain = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:2/0/terrains_peering_bit/bottom_side = 0
+3:2/0/terrains_peering_bit/bottom_left_corner = 0
+3:2/0/terrains_peering_bit/left_side = 0
+3:2/0/terrains_peering_bit/top_left_corner = 0
+3:2/0/terrains_peering_bit/top_side = 0
+5:2/0 = 0
+5:2/0/terrain_set = 0
+6:2/0 = 0
+6:2/0/terrain_set = 0
+8:2/0 = 0
+9:2/0 = 0
+10:2/0 = 0
+11:2/0 = 0
+12:2/0 = 0
+13:2/0 = 0
+1:3/0 = 0
+1:3/0/terrain_set = 0
+1:3/0/terrain = 0
+1:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+1:3/0/terrains_peering_bit/right_side = 0
+1:3/0/terrains_peering_bit/top_side = 0
+1:3/0/terrains_peering_bit/top_right_corner = 0
+2:3/0 = 0
+2:3/0/terrain_set = 0
+2:3/0/terrain = 0
+2:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+2:3/0/terrains_peering_bit/right_side = 0
+2:3/0/terrains_peering_bit/left_side = 0
+2:3/0/terrains_peering_bit/top_left_corner = 0
+2:3/0/terrains_peering_bit/top_side = 0
+2:3/0/terrains_peering_bit/top_right_corner = 0
+3:3/0 = 0
+3:3/0/terrain_set = 0
+3:3/0/terrain = 0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
+3:3/0/terrains_peering_bit/left_side = 0
+3:3/0/terrains_peering_bit/top_left_corner = 0
+3:3/0/terrains_peering_bit/top_side = 0
+5:3/0 = 0
+5:3/0/terrain_set = 0
+6:3/0 = 0
+6:3/0/terrain_set = 0
+8:3/0 = 0
+9:3/0 = 0
+10:3/0 = 0
+11:3/0 = 0
+12:3/0 = 0
+13:3/0 = 0
+8:4/0 = 0
+9:4/0 = 0
+10:4/0 = 0
+11:4/0 = 0
+12:4/0 = 0
+1:5/0 = 0
+2:5/0 = 0
+3:5/0 = 0
+5:5/0 = 0
+6:5/0 = 0
+8:5/0 = 0
+9:5/0 = 0
+10:5/0 = 0
+11:5/0 = 0
+12:5/0 = 0
+1:6/0 = 0
+2:6/0 = 0
+3:6/0 = 0
+6:6/0 = 0
+7:6/0 = 0
+8:6/0 = 0
+9:6/0 = 0
+10:6/0 = 0
+11:6/0 = 0
+12:6/0 = 0
+1:7/0 = 0
+2:7/0 = 0
+3:7/0 = 0
+6:7/0 = 0
+7:7/0 = 0
+8:7/0 = 0
+9:7/0 = 0
+10:7/0 = 0
+11:7/0 = 0
+12:7/0 = 0
+5:8/0 = 0
+1:9/0 = 0
+2:9/0 = 0
+3:9/0 = 0
+5:9/0 = 0
+7:9/0 = 0
+8:9/0 = 0
+9:9/0 = 0
+10:9/0 = 0
+11:9/0 = 0
+12:9/0 = 0
+13:9/0 = 0
+1:10/0 = 0
+2:10/0 = 0
+3:10/0 = 0
+5:10/0 = 0
+7:10/0 = 0
+8:10/0 = 0
+10:10/0 = 0
+12:10/0 = 0
+13:10/0 = 0
+1:11/0 = 0
+2:11/0 = 0
+5:11/0 = 0
+7:11/0 = 0
+8:11/0 = 0
+9:11/0 = 0
+10:11/0 = 0
+12:11/0 = 0
+13:11/0 = 0
+1:12/0 = 0
+2:12/0 = 0
+3:12/0 = 0
+4:12/0 = 0
+5:12/0 = 0
+6:12/0 = 0
+7:12/0 = 0
+8:12/0 = 0
+9:12/0 = 0
+10:12/0 = 0
+11:12/0 = 0
+12:12/0 = 0
+2:13/0 = 0
+4:13/0 = 0
+5:13/0 = 0
+6:13/0 = 0
+7:13/0 = 0
+8:13/0 = 0
+9:13/0 = 0
+1:14/0 = 0
+2:14/0 = 0
+3:14/0 = 0
+4:14/0 = 0
+5:14/0 = 0
+6:14/0 = 0
+10:14/0 = 0
+11:14/0 = 0
+12:14/0 = 0
+13:14/0 = 0
+7:15/0 = 0
+8:15/0 = 0
+9:15/0 = 0
+10:15/0 = 0
+11:15/0 = 0
+12:15/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_k0juu"]
+physics_layer_0/collision_layer = 3
+physics_layer_0/collision_mask = 3
+terrain_set_0/mode = 0
+terrain_set_0/terrain_0/name = "Terrain 0"
+terrain_set_0/terrain_0/color = Color(0.5, 0.34375, 0.25, 1)
+sources/0 = SubResource("TileSetAtlasSource_i7141")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4wyf3"]
+size = Vector2(2000, 20)
+
+[sub_resource type="Animation" id="Animation_4mrxx"]
+resource_name = "hide_and_show"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:material:shader_parameter/position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -1.5]
+}
+
+[sub_resource type="Animation" id="Animation_7r4gi"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:material:shader_parameter/position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [1.0]
+}
+
+[sub_resource type="Animation" id="Animation_i7141"]
+resource_name = "hide"
+length = 0.75
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:material:shader_parameter/position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, -1.5]
+}
+
+[sub_resource type="Animation" id="Animation_w7kh3"]
+resource_name = "show"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control/ColorRect:material:shader_parameter/position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.75),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [-1.5, 1.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_w7kh3"]
+_data = {
+&"RESET": SubResource("Animation_7r4gi"),
+&"hide": SubResource("Animation_i7141"),
+&"hide_and_show": SubResource("Animation_4mrxx"),
+&"show": SubResource("Animation_w7kh3")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_e3hyu"]
+shader = ExtResource("5_u3awl")
+shader_parameter/in_color = Color(0, 0, 0, 1)
+shader_parameter/out_color = Color(0, 0, 0, 1)
+shader_parameter/in_out = 0.0
+shader_parameter/position = 1.0
+shader_parameter/size = Vector2(16, 16)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4mrxx"]
+gradient = ExtResource("6_2ku1j")
+fill = 1
+fill_from = Vector2(0.5, 0.5)
+
+[node name="Level1" type="Node2D"]
+
+[node name="Parallax" parent="." instance=ExtResource("1_ejswk")]
+
+[node name="Player" parent="." instance=ExtResource("2_bbk5w")]
+position = Vector2(-161, 15)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAEAAkAAAADAAMAAAAEAAgAAAADAAIAAAAEAAcAAAADAAIAAAAEAAYAAAADAAIAAAAEAAUAAAADAAIAAAAEAAQAAAADAAIAAAAEAAMAAAADAAEAAAADAAkAAAACAAMAAAADAAgAAAACAAIAAAADAAcAAAACAAIAAAADAAYAAAACAAIAAAADAAUAAAACAAIAAAADAAQAAAACAAIAAAADAAMAAAACAAEAAAACAAkAAAACAAMAAAACAAgAAAACAAIAAAACAAcAAAACAAIAAAACAAYAAAACAAIAAAACAAUAAAACAAIAAAACAAQAAAACAAIAAAACAAMAAAACAAEAAAABAAkAAAACAAMAAAABAAgAAAACAAIAAAABAAcAAAACAAIAAAABAAYAAAACAAIAAAABAAUAAAACAAIAAAABAAQAAAACAAIAAAABAAMAAAACAAEAAAAAAAkAAAACAAMAAAAAAAgAAAACAAIAAAAAAAcAAAACAAIAAAAAAAYAAAACAAIAAAAAAAUAAAACAAIAAAAAAAQAAAACAAIAAAAAAAMAAAACAAEAAAD//wkAAAACAAMAAAD//wgAAAACAAIAAAD//wcAAAACAAIAAAD//wYAAAACAAIAAAD//wUAAAACAAIAAAD//wQAAAACAAIAAAD//wMAAAACAAEAAAD+/wkAAAACAAMAAAD+/wgAAAACAAIAAAD+/wcAAAACAAIAAAD+/wYAAAACAAIAAAD+/wUAAAACAAIAAAD+/wQAAAACAAIAAAD+/wMAAAACAAEAAAD9/wkAAAACAAMAAAD9/wgAAAACAAIAAAD9/wcAAAACAAIAAAD9/wYAAAACAAIAAAD9/wUAAAACAAIAAAD9/wQAAAACAAIAAAD9/wMAAAACAAEAAAD8/wkAAAACAAMAAAD8/wgAAAACAAIAAAD8/wcAAAACAAIAAAD8/wYAAAACAAIAAAD8/wUAAAACAAIAAAD8/wQAAAACAAIAAAD8/wMAAAACAAEAAAD7/wkAAAACAAMAAAD7/wgAAAACAAIAAAD7/wcAAAACAAIAAAD7/wYAAAACAAIAAAD7/wUAAAACAAIAAAD7/wQAAAACAAIAAAD7/wMAAAACAAEAAAD6/wkAAAACAAMAAAD6/wgAAAACAAIAAAD6/wcAAAACAAIAAAD6/wYAAAACAAIAAAD6/wUAAAACAAIAAAD6/wQAAAACAAIAAAD6/wMAAAACAAEAAAD5/wkAAAACAAMAAAD5/wgAAAACAAIAAAD5/wcAAAACAAIAAAD5/wYAAAACAAIAAAD5/wUAAAACAAIAAAD5/wQAAAACAAIAAAD5/wMAAAACAAEAAAD4/wkAAAACAAMAAAD4/wgAAAACAAIAAAD4/wcAAAACAAIAAAD4/wYAAAACAAIAAAD4/wUAAAACAAIAAAD4/wQAAAACAAIAAAD4/wMAAAACAAEAAAD3/wkAAAACAAMAAAD3/wgAAAACAAIAAAD3/wcAAAACAAIAAAD3/wYAAAACAAIAAAD3/wUAAAACAAIAAAD3/wQAAAACAAIAAAD3/wMAAAACAAEAAAD2/wkAAAACAAMAAAD2/wgAAAACAAIAAAD2/wcAAAACAAIAAAD2/wYAAAACAAIAAAD2/wUAAAACAAIAAAD2/wQAAAACAAIAAAD2/wMAAAACAAEAAAD1/wkAAAACAAMAAAD1/wgAAAACAAIAAAD1/wcAAAACAAIAAAD1/wYAAAACAAIAAAD1/wUAAAACAAIAAAD1/wQAAAACAAIAAAD1/wMAAAACAAEAAAD0/wkAAAACAAMAAAD0/wgAAAACAAIAAAD0/wcAAAACAAIAAAD0/wYAAAACAAIAAAD0/wUAAAACAAIAAAD0/wQAAAACAAIAAAD0/wMAAAACAAEAAADz/wkAAAABAAMAAADz/wgAAAABAAIAAADz/wcAAAABAAIAAADz/wYAAAABAAIAAADz/wUAAAABAAIAAADz/wQAAAABAAIAAADz/wMAAAABAAEAAAAYAAMAAAADAAMAAAAYAAIAAAADAAIAAAAYAAEAAAADAAIAAAAYAAAAAAADAAIAAAAYAP//AAADAAEAAAAXAAMAAAACAAMAAAAXAAIAAAACAAIAAAAXAAEAAAACAAIAAAAXAAAAAAACAAIAAAAXAP//AAACAAEAAAAWAAMAAAACAAMAAAAWAAIAAAACAAIAAAAWAAEAAAACAAIAAAAWAAAAAAACAAIAAAAWAP//AAACAAEAAAAVAAMAAAACAAMAAAAVAAIAAAACAAIAAAAVAAEAAAACAAIAAAAVAAAAAAACAAIAAAAVAP//AAACAAEAAAAUAAMAAAACAAMAAAAUAAIAAAACAAIAAAAUAAEAAAACAAIAAAAUAAAAAAACAAIAAAAUAP//AAACAAEAAAATAAMAAAACAAMAAAATAAIAAAACAAIAAAATAAEAAAACAAIAAAATAAAAAAACAAIAAAATAP//AAACAAEAAAASAAMAAAACAAMAAAASAAIAAAACAAIAAAASAAEAAAACAAIAAAASAAAAAAACAAIAAAASAP//AAACAAEAAAARAAMAAAACAAMAAAARAAIAAAACAAIAAAARAAEAAAACAAIAAAARAAAAAAACAAIAAAARAP//AAACAAEAAAAQAAMAAAACAAMAAAAQAAIAAAACAAIAAAAQAAEAAAACAAIAAAAQAAAAAAACAAIAAAAQAP//AAACAAEAAAAPAAMAAAACAAMAAAAPAAIAAAACAAIAAAAPAAEAAAACAAIAAAAPAAAAAAACAAIAAAAPAP//AAACAAEAAAAOAAMAAAACAAMAAAAOAAIAAAACAAIAAAAOAAEAAAACAAIAAAAOAAAAAAACAAIAAAAOAP//AAACAAEAAAANAAMAAAACAAMAAAANAAIAAAACAAIAAAANAAEAAAACAAIAAAANAAAAAAACAAIAAAANAP//AAACAAEAAAAMAAMAAAACAAMAAAAMAAIAAAACAAIAAAAMAAEAAAACAAIAAAAMAAAAAAACAAIAAAAMAP//AAACAAEAAAALAAMAAAACAAMAAAALAAIAAAACAAIAAAALAAEAAAACAAIAAAALAAAAAAACAAIAAAALAP//AAACAAEAAAAKAAMAAAABAAMAAAAKAAIAAAABAAIAAAAKAAEAAAABAAIAAAAKAAAAAAABAAIAAAAKAP//AAABAAEAAAA=")
+tile_set = SubResource("TileSet_k0juu")
+
+[node name="CanvasModulate" type="CanvasModulate" parent="."]
+color = Color(0.21568628, 0.2, 0.39607844, 1)
+
+[node name="RespawnArea" type="Area2D" parent="." node_paths=PackedStringArray("respawn_point")]
+position = Vector2(2, 184)
+script = ExtResource("4_d3jkd")
+respawn_point = NodePath("../RespawnPoint")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RespawnArea"]
+shape = SubResource("RectangleShape2D_4wyf3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="RespawnArea"]
+root_node = NodePath("../CanvasLayer")
+libraries = {
+&"": SubResource("AnimationLibrary_w7kh3")
+}
+
+[node name="CanvasLayer" type="CanvasLayer" parent="RespawnArea"]
+
+[node name="Control" type="Control" parent="RespawnArea/CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="RespawnArea/CanvasLayer/Control"]
+material = SubResource("ShaderMaterial_e3hyu")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+color = Color(0, 0, 0, 1)
+
+[node name="RandomLight" type="PointLight2D" parent="."]
+texture = SubResource("GradientTexture2D_4mrxx")
+texture_scale = 2.5
+script = ExtResource("7_f31uk")
+
+[node name="RandomLight2" type="PointLight2D" parent="."]
+position = Vector2(152, -49)
+texture = SubResource("GradientTexture2D_4mrxx")
+texture_scale = 2.5
+script = ExtResource("7_f31uk")
+
+[node name="RandomLight3" type="PointLight2D" parent="."]
+position = Vector2(-130, -49)
+texture = SubResource("GradientTexture2D_4mrxx")
+texture_scale = 2.5
+script = ExtResource("7_f31uk")
+
+[node name="RespawnPoint" type="Node2D" parent="."]
+position = Vector2(-168, 0)
+
+[connection signal="body_entered" from="RespawnArea" to="RespawnArea" method="_on_body_entered"]

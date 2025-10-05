@@ -98,6 +98,7 @@ one_shot = true
 
 [node name="EnemyHitbox" type="Area2D" parent="."]
 script = ExtResource("5_ioxvn")
+damage = 10
 metadata/_custom_type_script = "uid://b15hpxm0lirak"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox"]
