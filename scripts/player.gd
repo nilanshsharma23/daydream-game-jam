@@ -57,7 +57,7 @@ func _process(_delta: float) -> void:
 		animation_player.play("sprint" if walk_speed >= 200.0 else "walk")
 
 func _unhandled_input(event: InputEvent) -> void:
-	if event.is_action_pressed("attack"):
+	if event.is_action_pressed("attack") and melee_weapon_anchor.visible:
 		melee_weapon_anchor.swing_weapon()
 
 	# Jump with coyote time
@@ -105,9 +105,6 @@ func _on_ground_detector_body_exited(_body: Node2D) -> void:
 func _on_strength_meter_value_changed(value: float) -> void:
 	filled = value == 100.0
 
-func _on_hurtbox_hit() -> void:
-	print("hit")
-
 func _on_sacrifices_button_pressed() -> void:
 	var tween: Tween = create_tween()
 	if sacrifices_panel.visible:
@@ -127,20 +124,37 @@ func make_sacrifice(toggled_on: bool, sacrifice: Sacrifice, index: int) -> void:
 		
 		body_part.hide()
 		max_health -= sacrifice.health_decrease
+		health -= sacrifice.health_decrease
 		jump_speed += sacrifice.jump_boost
 		walk_speed += sacrifice.speed_boost
 		no_of_sacrifices += 1
+		
+		if sacrifice.weapon_type == Sacrifice.WeaponType.MELEE:
+			melee_weapon_anchor.get_child(0).get_child(0).damage = sacrifice.damage
+			melee_weapon_anchor.get_child(0).texture = sacrifice.melee_weapon_sprite
+			melee_weapon_anchor.show()
+		
 		if index == 0:
 			vignette_player.play("show")
 	else:
 		body_part.show()
 		max_health += sacrifice.health_decrease
+		health += sacrifice.health_decrease
 		jump_speed -= sacrifice.jump_boost
 		walk_speed -= sacrifice.speed_boost
 		no_of_sacrifices -= 1
+		
+		if sacrifice.weapon_type == Sacrifice.WeaponType.MELEE:
+			melee_weapon_anchor.hide()
+			
 		if index == 0:
 			vignette_player.play("hide")
 
 	var label = health_meter.get_node("Label") as Label
 	label.text = "%s/%s" % [health, max_health]
 	health_meter.max_value = max_health
+	health_meter.value = health
+
+func _on_hurtbox_hit(area: Area2D) -> void:
+	if area is EnemyHitbox:
+		print("here")

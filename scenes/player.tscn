@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://csw5uytlw14x4"]
+[gd_scene load_steps=42 format=3 uid="uid://csw5uytlw14x4"]
 
 [ext_resource type="Script" uid="uid://bwh81tov15l3c" path="res://scripts/player.gd" id="1_g2els"]
 [ext_resource type="Script" uid="uid://bmafa12hq3xth" path="res://scripts/sacrifice.gd" id="2_4r5pv"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dopy3tk3ni7r1" path="res://sprites/weapons/lightsaber.png" id="4_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://bw51kkg7tu88u" path="res://sprites/leg.png" id="4_dqkch"]
 [ext_resource type="Shader" uid="uid://b51dfru3jr2b1" path="res://flash.gdshader" id="4_smehm"]
+[ext_resource type="Script" uid="uid://cbbklwsyikfrp" path="res://scripts/player_hitbox.gd" id="5_4r5pv"]
 [ext_resource type="Texture2D" uid="uid://0dipxb055l2g" path="res://sprites/ui/fill.png" id="5_tuyoq"]
 [ext_resource type="Texture2D" uid="uid://dxfthdugy0vk7" path="res://sprites/ui/frame.png" id="6_fjrip"]
 [ext_resource type="FontFile" uid="uid://cj7npol18ibqs" path="res://fonts/nokiafc22.ttf" id="8_y4r1p"]
@@ -32,6 +33,9 @@ name = "Upper Body"
 health_decrease = 30
 speed_boost = 100
 sacrifice_description = "Lose 30 health from max health, slight speed boost"
+weapon_type = 0
+damage = 20
+melee_weapon_sprite = ExtResource("4_4r5pv")
 metadata/_custom_type_script = "uid://bmafa12hq3xth"
 
 [sub_resource type="Resource" id="Resource_fulsm"]
@@ -57,6 +61,9 @@ health_decrease = -10
 jump_boost = 50
 sacrifice_description = "Lose 10 from max health, but slight jump boost"
 metadata/_custom_type_script = "uid://bmafa12hq3xth"
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_60mlk"]
+size = Vector2(3, 17)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_dqkch"]
 size = Vector2(14, 24)
@@ -406,6 +413,8 @@ sacrificable_body_parts = [NodePath("Body/Head"), NodePath("Body/Ball1"), NodePa
 sacrifices = [SubResource("Resource_60mlk"), SubResource("Resource_4r5pv"), SubResource("Resource_fulsm"), SubResource("Resource_a38lo"), SubResource("Resource_i4ail")]
 
 [node name="MeleeWeaponAnchor" type="Node2D" parent="."]
+visible = false
+position = Vector2(0, 7)
 script = ExtResource("3_fulsm")
 weapon_offset = Vector2(0, 2)
 swing_speed = 5.0
@@ -413,6 +422,14 @@ swing_speed = 5.0
 [node name="MeleeWeaponSprite" type="Sprite2D" parent="MeleeWeaponAnchor"]
 position = Vector2(8, 0)
 texture = ExtResource("4_4r5pv")
+
+[node name="PlayerHitbox" type="Area2D" parent="MeleeWeaponAnchor/MeleeWeaponSprite"]
+script = ExtResource("5_4r5pv")
+metadata/_custom_type_script = "uid://cbbklwsyikfrp"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="MeleeWeaponAnchor/MeleeWeaponSprite/PlayerHitbox"]
+position = Vector2(-0.5, -1.5)
+shape = SubResource("RectangleShape2D_60mlk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 6)
