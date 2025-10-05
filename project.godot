@@ -10,10 +10,10 @@ config_version=5
 
 [application]
 
-config/name="daydream game jam"
+config/name="Prometheia"
 run/main_scene="uid://c7ywkgnarodm3"
 config/features=PackedStringArray("4.5", "Forward Plus")
-config/icon="res://icon.svg"
+config/icon="uid://d4jh5ema28c67"
 
 [autoload]
 
@@ -29,7 +29,7 @@ PlayerManager="*res://scripts/player_manager.gd"
 window/size/viewport_width=1280
 window/size/viewport_height=720
 window/stretch/mode="canvas_items"
-window/stretch/aspect="expand"
+window/stretch/aspect="keep_width"
 
 [editor_plugins]
 

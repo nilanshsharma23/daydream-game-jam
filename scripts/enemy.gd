@@ -10,6 +10,7 @@ var knockback_tween: Tween
 var player_detected: bool
 
 const HURT = preload("uid://dej72cqyem30i")
+const DUST_EXPLOSION_PARTICLES = preload("uid://bwk48ote1ro3v")
 
 @export var health: int = 100
 
@@ -43,7 +44,11 @@ func _on_hurtbox_hit(area: Area2D) -> void:
 		HitStop.hit_stop(0, 0.25)
 		SoundManager.play_sound_with_random_pitch(HURT)
 		CameraShake.shake(1, 0.1)
-		print(area.get_parent().name)
+		var particles: GPUParticles2D = DUST_EXPLOSION_PARTICLES.instantiate()
+		particles.emitting = true
+		particles.global_position = area.global_position
+		add_child(particles)
+		particles.finished.connect(particles.queue_free)
 		if area.get_parent() is Projectile:
 			area.get_parent().queue_free()
 

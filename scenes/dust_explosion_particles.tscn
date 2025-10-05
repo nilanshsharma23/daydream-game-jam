@@ -1,0 +1,33 @@
+[gd_scene load_steps=4 format=3 uid="uid://bwk48ote1ro3v"]
+
+[ext_resource type="Texture2D" uid="uid://bwex4u0yw82d7" path="res://sprites/dust.png" id="1_ecnh4"]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_q44dc"]
+particles_animation = true
+particles_anim_h_frames = 5
+particles_anim_v_frames = 1
+particles_anim_loop = false
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_26uw3"]
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 5.0
+angle_max = 211.8
+spread = 180.0
+initial_velocity_min = 50.0
+initial_velocity_max = 50.0
+gravity = Vector3(0, 0, 0)
+scale_min = 0.2
+scale_max = 0.5
+anim_speed_min = 0.5
+anim_speed_max = 0.5
+
+[node name="DustExplosionParticles" type="GPUParticles2D"]
+material = SubResource("CanvasItemMaterial_q44dc")
+emitting = false
+amount = 20
+texture = ExtResource("1_ecnh4")
+lifetime = 0.5
+one_shot = true
+explosiveness = 1.0
+process_material = SubResource("ParticleProcessMaterial_26uw3")
